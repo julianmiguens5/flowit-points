@@ -1,0 +1,7 @@
+Options -Multiviews
+RewriteEngine On
+
+RewriteCond %{THE_REQUEST} \ /+index\.php\?st=([^&\ ]+)
+RewriteRule ^ /%1/? [L,R]
+
+RewriteRule ^storename/(.+)$ /index.php?storename=$1 [L,QSA]

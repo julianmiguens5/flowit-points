@@ -1,0 +1,741 @@
+
+
+body {
+	background-image: url("../img/linen.png");
+	background-repeat: repeat;
+	font-family: 'Maven Pro', sans-serif;/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+.home {
+	background-color:#000;
+}
+.logohome {
+	max-width: 350px;
+	padding-bottom: 50px;
+}
+.logo-sec {
+	float: right;
+	margin-top: 15px;
+	margin-right: 130px;
+}
+
+.colornav {
+	background-color: #000;
+	-webkit-box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 3px 3px 0px rgba(0,0,0,0.75);
+padding-bottom: 10px;
+}
+
+.colornav h4 {
+	color: white !important;
+}
+.colornav a {
+	text-decoration: none !important;
+	color: white !important;
+}
+.franquicias {
+	vertical-align: bottom;
+	margin-top: 100px;
+}
+
+.logo-primary{
+  width: 200px;
+  padding: 10px;
+}
+
+@media screen and (max-width: 767px)
+{
+	.logo-sec, .logo-mid {
+		visibility: hidden;
+		margin:-100px;
+	}
+}
+
+@media screen and (max-width: 767px)
+{
+	.logo-sec {
+		visibility: hidden;
+		margin:-100px;
+	}
+}
+
+/*--------------ADMINISTRADOR-----------------------*/
+#home i {
+	font-size: 10px;
+	margin-left: -20px;
+    margin-top: 10px;
+    color: red;
+}
+#home p {
+	color: red;
+	margin-left: 20px;
+}
+#puntos i {
+	font-size: 10px;
+	margin-left: -20px;
+    margin-top: 10px;
+    color: red;
+}
+#puntos p {
+	color: red;
+	margin-left: 20px;
+}
+.alerta {
+	color: green !important;
+	font-size: 15px !important;
+	margin-left: 20px !important;
+}
+legend {
+	padding-bottom:20px;
+	font-weight:bold;
+}
+h4 {
+	font-weight:bold;
+}
+#usuarios {
+	margin-top: -20px;
+}
+/* Gradient transparent - color - transparent */
+
+/*--------------LOGIN-----------------------*/
+#loginadmin
+{
+	margin-top:-20px;
+	color: #CB9865;
+}
+.loginadmin
+	{
+	padding:130px;
+	background-color:#000;
+	color:#FFF;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border: 0px solid #000000;
+	}
+.vdivide {
+	padding-right:17px;
+	border-right: 2px solid #CB9865;
+}
+@media screen and (max-width: 767px) {
+	#loginadmin
+{
+	margin-top:0px;
+}
+.loginadmin
+	{
+	padding:130px;
+	background-color:#000;
+	color:#FFF;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border: 0px solid #000000;
+	}
+}
+#login {
+	margin-top:5%;
+	margin-bottom:5%;
+	color: #e6bc3c;
+}
+#login h4
+{
+	margin-left:0px;
+	padding-left: 15px;
+	font-size: 1.8em;
+}
+#login a, #loginadmin a
+{
+	color:#000;
+}
+.login {
+	padding-top:13px;
+	background-color:#000;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border: 2px solid #CE8054;
+}
+
+#login p {
+	padding: 10px !important;
+	font-size: 1.4em;
+}
+.logina {
+	color:#FFF !important;
+}
+.errlogin {
+	margin-left:10px !important; 
+}
+.linea {
+	    border: 0;
+    height: 2px;
+	width:100%;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+.terms {
+	text-align: justify;
+	color:#000;
+}
+/*--------------LINKS-----------------------*/
+.links {
+	padding:0px !important;
+	  text-decoration: none !important;
+  color: #000 !important;
+}
+.links:hover {
+	text-decoration: none !important;
+	background-color:transparent !important;
+}
+.links:active {
+	text-decoration: none !important;
+	background-color:transparent !important;
+}
+.data {
+	background-color: #fff;
+}
+#slideimg {
+	height: 600px;
+}
+
+/*.accordion-section-title {
+	color: #290087;
+	font-family: 'Maven Pro', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+}*/
+
+.accordion, .accordion * {
+
+}
+ 
+.accordion {
+    overflow:hidden;
+    box-shadow:0px 1px 3px rgba(0,0,0,0.25);
+    border-radius:3px;
+    background:#f7f7f7;
+}
+/*----- Section Titles -----*/
+.accordion-section-title {
+    width:100%;
+    padding:15px;
+    display:inline-block;
+    border-bottom:1px solid #1a1a1a;
+    background:#290087;
+    transition:all linear 0.15s;
+    /* Type */
+    text-shadow:0px 1px 0px #1a1a1a;
+    color:#fff;
+	font-family: 'Maven Pro', sans-serif;
+	font-size: 1.3em;
+	color: #fff;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+}
+ 
+.accordion-section-title.active, .accordion-section-title:hover {
+    background: #3300FF;
+    /* Type */
+    text-decoration:none;
+    color: #fff;
+}
+ 
+.accordion-section:last-child .accordion-section-title {
+    border-bottom:none;
+}
+ 
+/*----- Section Content -----*/
+.accordion-section-content {
+    padding:5px;
+    display:none;
+}
+
+.accordion-section-content .wrap_cons{
+	display:table;
+	margin-top:12px;
+	margin-bottom:12px;
+}
+.accordion-section-content label, .accordion-section-content input{
+	display:inline;
+	vertical-align:middle;
+	padding: 5px;
+}
+
+.block-consult {
+	padding: 10px 5px 5px 10px;
+}
+.block-consult h1{
+	font-family: 'Maven Pro', sans-serif;
+	font-size: 1.2em;
+	color: #687680;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	padding-bottom: 10px;
+}
+.block-consult p{
+	font-family: 'Maven Pro', sans-serif;
+	font-size: 1em;
+	color: #687680;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+}
+
+.block-recup {
+	margin-bottom:40px;
+}
+.block-recup h1{
+	font-family: 'Maven Pro', sans-serif;
+	font-size: 2em;
+	color: #1b0088;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	padding-bottom: 10px;
+}
+
+/*--------------MOVIMIENTOS-----------------------*/
+#movimientos {
+	background-image: url("../img/binding_light.png");
+	background-repeat: repeat;
+	padding:10px;
+	padding-top: 20px;
+	-webkit-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+
+}
+.movimientos {
+	margin-top:-20px;
+	margin-bottom:-25px;
+	padding-top: 35px;
+	font-weight: bold;
+
+}
+
+.movmargen {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+/*--------------FLECHAS PARA DROPDOWN-----------------------*/
+.panel-heading [data-toggle="collapse"]:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';;  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: #000;      /* adjust as needed */
+}
+.panel-heading [data-toggle="collapse"].collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+/*--------------PREMIOS-----------------------*/
+.catalogo {
+	color: #fff;
+}
+.titulo {
+	margin-left: -15px;
+}
+.titulo-r {
+	margin-right: -15px;
+}
+
+.negativo {
+	color:#F00;
+}
+/*--------------HISTORIAL DE VOUCHERS-----------------------*/
+#historialvouchers {
+		background-image: url("../img/binding_light.png");
+	background-repeat: repeat;
+	padding:10px;
+	-webkit-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
+}
+.movvou {
+	padding: 2px;
+}
+
+/*--------------CAROUSEL IMAGENES-----------------------*/
+.slide-image {
+    width: 100%;
+	border-radius: 0px 0px 0px 0px;
+-moz-border-radius: 0px 0px 0px 0px;
+-webkit-border-radius: 0px 0px 0px 0px;
+border: 1px solid #000000;
+}
+
+.carousel-holder {
+    margin-bottom: 30px;
+}
+
+.carousel-control,
+.item {
+    border-radius: 4px;
+}
+/*--------------VOUCHERS-----------------------*/
+.beneficios {
+	color: #fff;
+	font-weight: bold;
+}
+
+.caption {
+    overflow: hidden;
+}
+
+.caption h4 {
+    white-space: nowrap;
+	text-align: center;
+}
+#vouchers {
+	padding-bottom:15px;
+}
+.logo-vouchers {
+	width: 120px !important;
+}
+.thumbnail img {
+	width: 120px !important;
+}
+
+.nombrevoucher {
+	margin-top: -3px;
+	margin-bottom: -15px;
+	font-weight: bold;
+}
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+.errlogin {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+.thumbnail {
+    padding: 10px;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+/*--------------FOOTER-----------------------*/
+footer {
+	background-color:#000;
+	position: relative;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+}
+@media screen and (max-width: 767px) {
+	footer { visibility: hidden; }
+}
+#footerlogin {
+	margin-top:100px;
+	background-color:#000;
+	position: fixed !important;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+}
+
+.logo-primary-footer{
+  width: 150px;
+}
+
+.coloresfooter {
+	height:200px;
+	-webkit-box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.75);
+box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.75);
+}
+.logofooter {
+	  position: relative;
+  top: 50%;
+  transform: translateY(15%);
+}
+/* ADMINISTRADOR - 2DA PARTE */
+#administrador {
+	padding-top: 80px !important;
+}
+
+.flechasort
+{
+	font-size:30px;
+}
+
+.thead-inverse
+{
+	background-color:#000;
+	color:#FFF;
+}
+#consultas1
+{
+	padding:0px;
+}
+.totalimp {
+	text-align:right !important;
+	margin-right:15px !important;
+	font-weight:bold !important;
+}
+
+table.dataTable thead th {
+  background: transparent !important;
+  white-space: nowrap;
+}
+
+table.dataTable thead span.sort-icon {
+  display: inline-block;
+  padding-left: 5px;
+  width: 16px;
+  height: 16px;
+}
+
+table.dataTable thead .sorting span { background: url('http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/images/sort_both.png') no-repeat center right; }
+table.dataTable thead .sorting_asc span { background: url('http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/images/sort_asc.png') no-repeat center right; }
+table.dataTable thead .sorting_desc span { background: url('http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/images/sort_desc.png') no-repeat center right; }
+
+table.dataTable thead .sorting_asc_disabled span { background: url('http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/images/sort_asc_disabled.png') no-repeat center right; }
+table.dataTable thead .sorting_desc_disabled span { background: url('http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/images/sort_desc_disabled.png') no-repeat center right; }
+
+/* DASHBOARD */
+
+canvas {
+  display: block;
+}
+.ex-graph {
+  display: block;
+  margin: 0 auto 15px;
+}
+.ex-line-graph {
+  width: 100%;
+  height: 273px;
+}
+.hr-divider {
+  position: relative;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.hr-divider:before {
+  position: absolute;
+  top: 50%;
+  display: block;
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: #434857;
+}
+.hr-divider-content {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  padding-left: 1em;
+  padding-right: 1em;
+  color: #6f7890;
+  vertical-align: middle;
+  background-color: #252830;
+}
+.hr-divider-heading {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 100%;
+  color: inherit;
+}
+.hr-divider-nav > li > a {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 100%;
+}
+.hr-divider-nav > .active > a {
+  font-weight: 300;
+  background: transparent;
+}
+.custom-select {
+  display: inline-block;
+  padding: 6px 36px 6px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #cfd2da;
+  vertical-align: middle;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAUCAMAAACzvE1FAAAADFBMVEUzMzMzMzMzMzMzMzMKAG/3AAAAA3RSTlMAf4C/aSLHAAAAPElEQVR42q3NMQ4AIAgEQTn//2cLdRKppSGzBYwzVXvznNWs8C58CiussPJj8h6NwgorrKRdTvuV9v16Afn0AYFOB7aYAAAAAElFTkSuQmCC) no-repeat right 12px center;
+  background-color: #434857;
+  background-clip: padding-box;
+  background-size: 8px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  background-image: none \9;
+  padding-right: 12px \9;
+}
+.custom-select:focus {
+  border-color: #ffffff;
+  outline: 0;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
+}
+.custom-select:disabled {
+  background-color: #2d303a;
+  cursor: not-allowed;
+}
+.custom-select-sm {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.custom-control > label {
+  padding-left: 25px;
+  font-weight: normal;
+}
+.custom-control.radio-inline,
+.custom-control.checkbox-inline {
+  padding-left: 25px;
+}
+.custom-control.radio-inline > label,
+.custom-control.checkbox-inline > label {
+  padding-left: 0;
+}
+.custom-control input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+  /* Put the input behind the label so it doesn't overlay text */
+}
+.custom-control-indicator {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  display: block;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  background-color: #434857;
+  background-clip: padding-box;
+  background-size: 75% 75%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+/* Hover state */
+/* Uncomment if you need it, but be aware of the sticky iOS states.
+.control:hover .control-indicator {
+  background-color: #ccc;
+}
+*/
+/* Focus */
+.custom-control input:focus ~ .custom-control-indicator {
+  box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem #0074d9;
+}
+/* Checked state */
+.custom-control input:checked ~ .custom-control-indicator {
+  background-color: #1ca8dd;
+  border-color: #1ca8dd;
+  box-shadow: none;
+}
+/* Active */
+.custom-control input:active ~ .custom-control-indicator {
+  background-color: #5bc3ea;
+  border-color: #5bc3ea;
+  box-shadow: none;
+}
+.custom-control input:disabled ~ .custom-control-indicator {
+  background-color: #2d303a;
+  border-color: #2d303a;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.pre-modal-acum{
+	color: white;
+	font-weight: bold;
+}
+
+/* PIE CHART */
+
+#piechart text {
+	font-size: 14px;
+	font-family: 'Maven Pro', sans-serif;
+}
+
+#piechart2 text {
+	font-size: 14px;
+	font-family: 'Maven Pro', sans-serif;
+}
+
+/* CHARTS */
+
+.chart {
+  display: table;
+  table-layout: fixed;
+  width: 80%;
+  max-width: 700px;
+  height: 130px;
+  margin: 0 auto;
+  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.1) 2%, transparent 2%);
+  background-size: 100% 50px;
+  background-position: left top;
+  padding-bottom: 60px;
+  padding-left: 0;
+}
+.chart li {
+  position: relative;
+  display: table-cell;
+  vertical-align: bottom;
+  height: 130px;
+}
+.chart span {
+  margin: 0 1em;
+  display: block;
+  background: #1e5799; /* Old browsers */
+background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+  animation: draw 1s ease-in-out;
+}
+.chart span:before {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  display: block;
+  text-align: center;
+  content: attr(title);
+  word-wrap: normal;
+  font-weight: bold;
+}
+@keyframes draw {
+  0% {
+    height: 0;
+  }
+}
+
+/* SORS VERSION 2022 */
+
+.btn-sors{
+  background-color: transparent;
+  color: white;
+  border: 2px solid #CE8054;
+}
+
+.jumboLogin{
+  padding: 50px 0px 50px;
+}
+
+.loginCuadro{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}

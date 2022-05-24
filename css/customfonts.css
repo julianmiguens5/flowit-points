@@ -1,0 +1,19 @@
+@font-face {
+
+font-family: ‘Great Vibes’;
+
+   src: url('fonts/greatvibes-regular.eot');
+
+   src: url('fonts/greatvibes-regular.eot?#iefix') format('embedded-opentype'),
+
+        url('fonts/greatvibes-regular.woff') format('woff'),
+
+        url('fonts/greatvibes-regular.ttf') format('truetype'),
+
+        url('fonts/greatvibes-regular.svg#adlerRegular') format('svg');
+
+  font-weight: normal;
+
+  font-style: normal;
+
+}

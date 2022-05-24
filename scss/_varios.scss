@@ -1,0 +1,14 @@
+.flexrow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexcolumn {
+    display: flex;
+    flex-direction: column;
+}
+
+
+$imgreels: ("img1": scaleX(1.1), "img2": rotate(-5deg), "img3": rotate(5deg), "img4": scaleY(0.9), "img5": skewX(10deg));
+
+$alineado: ("izq": left, "der": right, "centro": center, "just": justify);

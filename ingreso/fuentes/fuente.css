@@ -1,0 +1,40 @@
+@font-face {
+	font-family: 'MyriadProBoldCondensed';
+	src: url('myriadpro-boldcond-webfont.eot');
+	src: local('☺'), url('myriadpro-boldcond-webfont.woff') format('woff'), url('myriadpro-boldcond-webfont.ttf') format('truetype'), url('myriadpro-boldcond-webfont.svg#webfontAUCI0Pyo') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MyriadProSemibold';
+	src: url('myriadpro-semibold-webfont.eot');
+	src: local('☺'), url('myriadpro-semibold-webfont.woff') format('woff'), url('myriadpro-semibold-webfont.ttf') format('truetype'), url('myriadpro-semibold-webfont.svg#webfontnVHZJ70d') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MyriadProCondensed';
+	src: url('myriadpro-cond-webfont.eot');
+	src: local('☺'), url('myriadpro-cond-webfont.woff') format('woff'), url('myriadpro-cond-webfont.ttf') format('truetype'), url('myriadpro-cond-webfont.svg#webfontYLojvx5f') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MyriadPro';
+	src: url('myriadpro-bold-webfont.eot');
+	src: local('☺'), url('myriadpro-bold-webfont.woff') format('woff'), url('myriadpro-bold-webfont.ttf') format('truetype'), url('myriadpro-bold-webfont.svg#webfontwZ1D6DzF') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MyriadPro';
+	src: url('myriadpro-regular-webfont.eot');
+	src: local('☺'), url('myriadpro-regular-webfont.woff') format('woff'), url('myriadpro-regular-webfont.ttf') format('truetype'), url('myriadpro-regular-webfont.svg#webfontmgX0knFH') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
