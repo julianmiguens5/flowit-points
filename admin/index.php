@@ -1,4 +1,4 @@
-<?php 
+<?php
     
 // iniciamos session
 session_start ();
@@ -24,8 +24,12 @@ $cumples=new cumples;
 $top5=new top5;
 $editvou=new editarvoucher;
 
-$error4=$sumaimp->sumarimportes($row["total"]);
-$error5=$sumacanj->sumarcanjeado($row["total"]);
+$store = new Stores;
+
+$storename = $store->traerStore();
+
+$error4=$sumaimp->sumarimportes();
+$error5=$sumacanj->sumarcanjeado();
 
 $ventasuc=$ventasucursal->sumarsucursales();
 
@@ -60,6 +64,8 @@ if ( !empty($_POST['submitacum']) ) {
 	//$error3=$sumap->sumarpuntos();
 
 }
+
+if (isset($_GET['mensacum'])) {
 if (($_GET['mensacum']) == 'exito') {
 		$mensacum="La acumulación de puntos fue exitosa";
 		} 
@@ -68,6 +74,8 @@ if (($_GET['mensacum']) == 'error') {
 		$mensacum="";
 		$mensacumerr="No se han podido cargar los puntos. Verifique que el DNI este asociado al programa.";
 		} 
+  }
+
 
 if ( !empty($_POST['submitvou']) ) {
 	$error6=$aceptarvoucher->aceptarvoucher();
@@ -76,12 +84,7 @@ if ( !empty($_POST['submitvou']) ) {
 if (isset($_GET['panel']) && ($_GET['panel']=='insc' or $_GET['panel']=='acum' or $_GET['panel']=='canj' or $_GET['panel']=='cons')) {
 	$panel=$_GET['panel'];
 } else {
-  if (($_SESSION['usuarioadmin']) == $usuarioadmin) {
-	$panel='acum';
-  }
-  else {
-    $panel='acum';
-  }
+  $panel="acum";
 }
 
 if ( !empty($_POST['vouedit'])) {
@@ -122,159 +125,76 @@ if ( empty($arrAdmin) ) {
 <!DOCTYPE html>
 <html lang="en">
 
-<? require_once 'header.php'; ?>
+<?php  require_once 'header.php'; ?>
 
 <body>
 
     <!-- Page Content -->
- <section id="administrador">
+ <section id="administrador" class="flex-wrapper">
     <div class="container">
     	<div class="row">
-              <div class="col-xs-12">
-            	    <ul class="nav navbar-nav-secr">
-                	<li><? echo $programa; ?></li>
-                    <!--<li><i class="fa fa-user" aria-hidden="true"></i></li>-->
-                    <!--<li><a href="#consultas"><i class="fa fa-bar-chart" aria-hidden="true"></i></a></li>-->
-                    <li><a href="index.php?salir=true" class="links"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></a></li>
-                </ul>
-				  <p><? /* */ ?></p>
-            </div>
         	<ul class="nav nav-tabs responsive" id="myTab">
-            <?php
-    if (($_SESSION['usuarioadmin']) != '')
-    {
-				switch ($panel) {
-	    		case 'insc':
-	    			echo '<li class="active"><a href="#home">Inscripción de Socios</a></li>
-                  <li><a href="#puntos">Acumulación de Puntos</a></li>
-                  <li><a href="#messages">Validación de Vouchers</a></li>
-                  <li><a href="#consultas">Consultas</a></li>
-				  <li><a href="#edit">Editar Vouchers</a></li>';
-	    			break;
-				case 'acum':
-	    			echo '<li><a href="#home">Inscripción de Socios</a></li>
-                  <li class="active"><a href="#puntos">Acumulación de Puntos</a></li>
-                  <li><a href="#messages">Validación de Vouchers</a></li>
-                  <li><a href="#consultas">Consultas</a></li>
-				  <li><a href="#edit">Editar Vouchers</a></li>';
-	    			break;
-				case 'canj':
-	    			echo '<li><a href="#home">Inscripción de Socios</a></li>
-                  <li><a href="#puntos">Acumulación de Puntos</a></li>
-                  <li class="active"><a href="#messages">Validación de Vouchers</a></li>
-                  <li><a href="#consultas">Consultas</a></li>
-				  <li><a href="#edit">Editar Vouchers</a></li>';
-	    			break;
-				case 'cons':
-	    			echo '<li><a href="#home">Inscripción de Socios</a></li>
-                  <li><a href="#puntos">Acumulación de Puntos</a></li>
-                  <li><a href="#messages">Validación de Vouchers</a></li>
-                  <li class="active"><a href="#consultas">Consultas</a></li>
-				  <li><a href="#edit">Editar Vouchers</a></li>';
-	    			break;
-				case 'edit':
-	    			echo '<li><a href="#home">Inscripción de Socios</a></li>
-                  <li><a href="#puntos">Acumulación de Puntos</a></li>
-                  <li><a href="#messages">Validación de Vouchers</a></li>
-                  <li><a href="#consultas">Consultas</a></li>
-				  <li class="active"><a href="#edit">Editar Vouchers</a></li>';
-	    			break;
-	    		
-	    		default:
-	    			echo '<li><a href="#home">Inscripción de Socios</a></li>
-                  <li class="active"><a href="#puntos">Acumulación de Puntos</a></li>
-                  <li><a href="#messages">Validación de Vouchers</a></li>
-                  <li><a href="#consultas">Consultas</a></li>
-				  <li><a href="#edit">Editar Vouchers</a></li>';
-	    			break;
-	    	}
-      }
-			?>
             </ul>
 
             <div class="tab-content responsive">
               <div class="tab-pane <?php if($panel=='insc') echo 'active'; ?>" id="home">
-              <form class="form-horizontal" method="post">
+              <legend>Inscripción de Socios</legend>
+              <form class="form-horizontal formRegistro" method="post">
                     <fieldset>
                     
                     <!-- Form Name -->
-                    <legend class="text-center">Inscripción de Socios<hr class="linea"></legend>
                     
                     
-                    <!-- Text input-->
+                    <div class="fieldsetForm">
                     <div class="form-group">
-                      <label class="col-md-4 control-label" for="dni">DNI:</label>  
-                      <div class="col-md-4">
+                      <label class="control-label" for="dni">DNI:</label>  
                       <input id="dni" name="dni" type="text" placeholder="DNI" class="form-control input-md" required>
-                      </div>
-                       <div class="col-md-4">
-                        <i class="fa fa-asterisk pull-left" aria-hidden="true"></i>
-                      
-                      <!--<div class="col-md-4">
-                       <button id="submit" name="submitdni" class="btn btn-primary">BUSCAR</button>
-                      </div>-->
-                      
-                      <label class="control-label">(N° de Socio)</label>
-                      </div>
+                       
                     </div>
                     
                     <!-- Text input-->
                     <div class="form-group">
-                      <label class="col-md-4 control-label" for="apellido">Apellido:</label>  
-                      <div class="col-md-4">
+                      <label class="control-label" for="apellido">Apellido:</label>  
+
                       <input id="apellido" name="apellido" type="text" placeholder="Apellido" class="form-control input-md" required>
                         
-                      </div>
-                       <div class="col-md-4">
-                        <i class="fa fa-asterisk pull-left" aria-hidden="true"></i>
-                      </div>
+                      
                     </div>
                     
                     <!-- Text input-->
                     <div class="form-group">
-                      <label class="col-md-4 control-label" for="nombre">Nombre:</label>  
-                      <div class="col-md-4">
+                      <label class="control-label" for="nombre">Nombre:</label>  
+
                       <input id="nombre" name="nombre" type="text" placeholder="Nombre" class="form-control input-md" required>
                         
-                      </div>
-                       <div class="col-md-4">
-                        <i class="fa fa-asterisk pull-left" aria-hidden="true"></i>
-                      </div>
+
+                       
                     </div>
                     
                     <!-- Text input-->
                     <div class="form-group">
-                      <label class="col-md-4 control-label" for="mail">Mail:</label>  
-                      <div class="col-md-4">
+                      <label class="control-label" for="mail">Mail:</label>  
+                      
                       <input id="mail" name="mail" type="text" placeholder="Mail" class="form-control input-md" required>
                         
-                      </div>
-                       <div class="col-md-4">
-                        <i class="fa fa-asterisk pull-left" aria-hidden="true"></i>
-                      </div>
+                       
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                      <label class="col-md-4 control-label" for="fechanac">Fecha de Nacimiento:</label>  
-                      <div class="col-md-4">
+                      <label class="control-label" for="fechanac">Fecha de Nacimiento:</label>  
                       <input type="date" name="fechanac" class="form-control input-md" id="fecha" placeholder="Fecha de Nacimiento" required>
                         
-                      </div>
-                      <div class="col-md-4">
-                        <i class="fa fa-asterisk pull-left" aria-hidden="true"></i>
-                      </div>
+                      
                     </div>
                     
                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="telefono">Teléfono:</label>  
-                      <div class="col-md-4">
+                      <label class="control-label" for="telefono">Teléfono:</label>  
+
                       <input id="telefono" name="telefono" type="text" placeholder="Cod. de área y sin 15" class="form-control input-md" required>
                         
-                      </div>
-                      <div class="col-md-4">
-                        <i class="fa fa-asterisk pull-left" aria-hidden="true"></i>
-                      </div>
+
+                      
                     </div>
                     <!-- Text input-->
                     <!--<div class="form-group">
@@ -337,57 +257,43 @@ if ( empty($arrAdmin) ) {
                     
                     <!-- Button -->
                     <div class="form-group">
-                      <div class="col-md-2 col-md-offset-4">
-                      <p>
-                        <i class="fa fa-asterisk"></i> Datos obligatorios.
-                      </p>
-                      </div>
+                      
                       <div class="col-md-2">
                       
-                        <button id="submit" name="submitins" class="btn btn-success pull-right" value="submitins">ACEPTAR</button>
+                        <button id="submit" name="submitins" class="btn btn-sors" value="submitins">ACEPTAR</button>
                       
                     </div>
+                    </div>
+                    <!-- Text input-->
+                    
                     </fieldset>
                     </form>
                     
                     </div>
 
                                   <div class="tab-pane <?php if($panel=='acum') echo 'active'; ?>" id="puntos">
-                                  <form class="form-horizontal" method="post">
+                                  <legend>Acumulación de Puntos</legend>
+                                  <form class="form-horizontal formRegistro" method="post">
                                   <fieldset>
-                                  <legend class="text-center">Acumulación de Puntos<hr class="linea"></legend>
-                                 
+                                  <div class="fieldsetForm">
+                                  
+                                  
                                   <div class="form-group">
-                                      <label class="col-md-4 control-label" for="ln">DNI:</label>  
-                                      <div class="col-md-4">
+                                      <label class="control-label" for="ln">DNI:</label>  
                                       <input id="ln" name="dniacum" type="text" placeholder="DNI" class="form-control input-md" autocomplete="off" required>
-                                        
-                                      </div>
-                                       <div class="col-md-4">
-                                        <i class="fa fa-asterisk pull-left" aria-hidden="true"></i>
-                                        <label class="control-label">(N° de Socio)</label>
-                                      </div>
                                     </div>
                                      <div class="form-group">
-                                      <label class="col-md-4 control-label" for="ln">N° del Ticket/Factura:</label>  
-                                      <div class="col-md-4">
+                                      <label class="control-label" for="ln">N° del Ticket/Factura:</label>  
+
                                       <input id="ln" name="ticket" type="text" placeholder="N° de Ticket" class="form-control input-md" autocomplete="off">
-                                        
-                                      </div>
 
                                     </div>
                                     
                                     <!-- Text input-->
                                     <div class="form-group">
-                                      <label class="col-md-4 control-label" for="cmpny">Importe del Ticket/Factura:</label>  
-                                      <div class="col-md-4">
-                                      <input onkeyup="obtenerSuma();" id="sumando1" type="number" size="7" maxlength="7" class="form-control" placeholder="Importe del Ticket" name="monto" autocomplete="off" required>
+                                      <label class="control-label" for="cmpny">Importe del Ticket/Factura:</label>  
 
-                                        
-                                      </div>
-                                      <div class="col-md-1">
-                                        <i class="fa fa-asterisk pull-left" aria-hidden="true"></i>
-                                      </div>
+                                      <input onchange="obtenerSuma();" onkeyup="obtenerSuma();" id="sumando1" type="number" size="7" maxlength="7" class="form-control" placeholder="Importe del Ticket" name="monto" autocomplete="off" required>
                                    
 
                                       <div class="col-md-1">
@@ -400,23 +306,19 @@ if ( empty($arrAdmin) ) {
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Sucursal">Sucursal:</label>  
 									  <div class="col-md-4">
-									  <input id="sucursal" name="sucursal" type="text" value="<? echo $_SESSION['sucursaladmin'] ?>" class="form-control input-md" readonly>
+									  <input id="sucursal" name="sucursal" type="text" value="<?php  echo $_SESSION['sucursaladmin'] ?>" class="form-control input-md" readonly>
 
 									  </div>
 									</div>
-									  <? $unique_id = uniqid(microtime(),1); ?>
+									  <?php  $unique_id = uniqid(microtime(),1); ?>
 									  <input type="hidden" name="unique_id" value="<?php echo $unique_id; ?>">
                                     <div class="form-group">
-                                    <div class="col-md-2 col-md-offset-4">
-                                        <p>
-                                          <i class="fa fa-asterisk"></i> Datos obligatorios. <? echo $exito; ?>
-                                        </p>
-                                        
-                                      </div>
+                                    
                       <div class="col-md-6">
-                        <p id="submitacummodal" class="btn btn-success pull-right pre-modal-acum">ACEPTAR</p>
+                        <p id="submitacummodal" class="btn btn-sors">ACEPTAR</p>
 						 
                       </div>
+                    </div>
                     </div>
               </fieldset>
               </form>
@@ -428,7 +330,7 @@ if ( empty($arrAdmin) ) {
     <div class="modal-dialog">
     
       <!-- Modal content-->
-      <div class="modal-content">
+      <div class="modal-content custom-modal">
         <div class="modal-header" style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4>Confirmar Acumulación de puntos</h4>
@@ -447,11 +349,11 @@ if ( empty($arrAdmin) ) {
 		      <input type="hidden" id="montoconf" name="monto" readonly>
 		      <input type="hidden" id="uniqueidconf" name="unique_id" readonly>
             </div>
-              <input type="submit" value="ACEPTAR" name="submitacum" class="btn btn-success pull-right" id="submitacum">
+              <input type="submit" value="ACEPTAR" name="submitacum" class="btn btn-sors" id="submitacum">
           </form>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+          <button type="submit" class="btn btn-sors" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
         </div>
       </div>
       
@@ -460,92 +362,97 @@ if ( empty($arrAdmin) ) {
 									  
 									  
               <div>
-              <h4><?		
+              <h4><?php 		
 							if (!empty($mensacum)) { ?>
                             <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle alerta"></i> <?
+                                    <button type="button" class="close" data-dismiss="alert" style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="icofont-tick-mark"></i> <?php 
 								echo $mensacum;
 							}
 							if (!empty($mensaje)) { ?>
                             <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle alerta"></i> <?
+                                    <button type="button" class="close" data-dismiss="alert" style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="icofont-tick-mark"></i> <?php 
 								echo $mensaje;
 							}
                    
 							if (!empty($mensacumerr)) { ?>
                             <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle alerta"></i> <?
+                                    <button type="button" class="close" data-dismiss="alert" style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="icofont-tick-mark"></i> <?php 
 								echo $mensacumerr;
 							}
+
+              if(isset($error6)) {  
 							if ((stripos($error6,"validado")) == true ) { ?>
                                 <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle alerta"></i> <?
+                                    <button type="button" class="close" data-dismiss="alert" style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="icofont-tick-mark"></i> <?php 
 									echo $error6;
 								}
 							if ($error6 == 'El voucher ya se ha utilizado.') {	?>
                                 <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle alerta"></i> <?
+                                    <button type="button" class="close" data-dismiss="alert" style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="icofont-tick-mark"></i> <?php 
 									echo $error6;
 								}
 							if ($error6 == 'Voucher no encontrado') {	?>
                                 <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle alerta"></i> <?
+                                    <button type="button" class="close" data-dismiss="alert" style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="icofont-tick-mark"></i> <?php 
 									echo $error6;
 								}
+              }
 							?>
                             
 							</h4>
               </div>
         </div>
               <div class="tab-pane <?php if($panel=='canj') echo 'active'; ?>" id="messages">
-              <form class="form-horizontal" method="post">
+              <legend>Validación de Cupones</legend>
+              <form class="form-horizontal formRegistro" method="post">
                                   <fieldset>
-                                  <legend class="text-center">Validación de Vouchers<hr class="linea"></legend>
+                                  <div class="fieldsetForm">
+                                  
               						 <div class="form-group">
-                                      <label class="col-md-4 control-label" for="ln">N° del Voucher:</label>  
-                                      <div class="col-md-4">
-                                      <input id="voucher" name="voucher" type="text" placeholder="N° del Voucher" class="form-control input-md" autocomplete="off" required>
-                                        
-                                      </div>
+                                      <label class="control-label" for="ln">Código de cupón:</label>  
+                                      <input id="voucher" name="voucher" type="text" placeholder="Código de cupón" class="form-control input-md" autocomplete="off" required>
                                     </div>
               						<div class="form-group">
-                      					<label class="col-md-4 control-label" for="submit"></label>
-                      					<div class="col-md-4">
-                                        <button id="submit" name="submitvou" class="btn btn-success pull-right" value="submitvou">VALIDAR</button>
-                                      </div>
+                      					<label class="control-label" for="submit"></label>
+
+                                        <button id="submit" name="submitvou" class="btn btn-sors" value="submitvou">VALIDAR</button>
+
+                                    </div>
                                     </div>
               					  </fieldset>
                </form>
-              	<h4><?php 
+              	<h4><?php if(isset($error6)) {
 								if ($error6 == 'El voucher se ha validado con éxito.') { ?>
                                 <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle"></i> <?
+                                    <button type="button" class="close" data-dismiss="alert"style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="fa fa-exclamation-triangle"></i> <?php 
 									echo $error6;
 								}
 								if ($error6 == 'Error en los datos. El voucher ya se ha utilizado.') {	?>
                                 <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle"></i> <?
+                                    <button type="button" class="close" data-dismiss="alert"style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="fa fa-exclamation-triangle"></i> <?php 
 									echo $error6;
 								}
 								if ($error6 == 'Voucher no encontrado') {	?>
                                 <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle"></i> <?
+                                    <button type="button" class="close" data-dismiss="alert"style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="fa fa-exclamation-triangle"></i> <?php 
 									echo $error6;
 								}
+
+              }
 				/* if (isset($str_result)) { ?>
                                     <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <i class="fa fa-exclamation-triangle"></i> <?= $str_result ?></div>
-                <?php } */ ?></h4>
+                                    <button type="button" class="close" data-dismiss="alert"style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <i class="fa fa-exclamation-triangle"></i> <?php = $str_result ?></div>
+                <?php php } */ ?></h4>
                                 
               	
 			</div>
@@ -557,10 +464,10 @@ if ( empty($arrAdmin) ) {
 				  <h4><?php if(!empty($mensajeedit)){
 					if ((stripos($mensajeedit,"actualizado")) == true ) {
 						echo '<div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <button type="button" class="close" data-dismiss="alert"style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <i class="fa fa-exclamation-triangle"></i>'.$mensajeedit.'</div>'; } else {
 							'<div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <button type="button" class="close" data-dismiss="alert"style="float:right;" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <i class="fa fa-exclamation-triangle"></i>'.$mensajeedit.'</div>';
 					} 
 			} ?></h4><?php } else { ?>
@@ -570,76 +477,22 @@ if ( empty($arrAdmin) ) {
  <div class="tab-pane <?php if($panel=='cons') echo 'active'; ?>" id="consultas">
 	 
 <div class="row">
-<div class="col-sm-6 m-b-md">
+<div class="col-6 m-b-md">
 <div id="piechart" style="display: inline-block"></div>
 <div id="piechart2" style="display: inline-block"></div>
 </div>
-<!--<div class="col-xs-12 col-md-6">
-<legend class="text-center">Dashboard</legend>
 
-  <div class="col-md-6 m-b-md">
-    <div class="w-lg m-x-auto">
-      <canvas
-        class="ex-graph"
-        data-chart="doughnut"
-        data-value="[{ value: <? echo $ventasuc[1][1]; ?>, color: '#FFFC0D', label: '<? echo $ventasuc[1][0]; ?>' }, { value: <? echo $ventasuc[2][1]; ?>, color: '#1bc98e', label: '<? echo $ventasuc[2][0]; ?>' }, { value: <? echo $ventasuc[3][1]; ?>, color: '#700CE8', label: '<? echo $ventasuc[3][0]; ?> <? echo $ventasuc[4][1]; ?> <? echo $ventasuc[4][0]; ?>' }]"
-        data-segment-stroke-color="#252830">
-      </canvas>
-	    <h4 class="text-muted text-center">Rendimiento de sucursales</h4>
-    </div>
-
-  </div>
-    <div class="col-md-6 m-b-md">
-	  
-    <div class="w-lg m-x-auto"><? if ($error5 == '') { $error5 = 1; } if ($error4 == '') { $error4 = 1; } ?>
-      <canvas
-        class="ex-graph"
-        data-chart="doughnut"
-        data-value="[{ value: <? echo $error5; ?>, color: '#1ca8dd', label: 'Canjeados' }, { value: <? echo $error4; ?>, color: '#1bc98e', label: 'Pendientes' }]"
-        data-segment-stroke-color="#252830">
-      </canvas>
-	    <h4 class="text-muted text-center">Canjeados vs Pendientes</h4>
-    </div>
-
-  </div>	
-</div>-->
-  <div class="col-sm-4 m-b-md">
-<? 
-   $porcentaje2 = number_format((($topcinco[1]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje3 = number_format((($topcinco[2]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje4 = number_format((($topcinco[3]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje5 = number_format((($topcinco[4]["puntos"]*100)/$topcinco[0]["puntos"]));
-?>
-	  <h5 class="text-center"><strong>Top Clientes</strong></h5>
-	  <ul class="chart">
-  <li>
-    <span style="height:100%" title="<? echo $topcinco[0]["nombre"]." ".$topcinco[0]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<? echo $porcentaje2."%" ?>" title="<? echo $topcinco[1]["nombre"]." ".$topcinco[1]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<? echo $porcentaje3."%" ?>" title="<? echo $topcinco[2]["nombre"]." ".$topcinco[2]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<? echo $porcentaje4."%" ?>" title="<? echo $topcinco[3]["nombre"]." ".$topcinco[3]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<? echo $porcentaje5."%" ?>" title="<? echo $topcinco[4]["nombre"]." ".$topcinco[4]["apellido"] ?>"></span>
-  </li>
-</ul>  
-  </div>
-
-  <div class="col-sm-2">
+<div class="col-6">
 	  <h5><strong>Cumpleaños de hoy</strong></h5>
 	  <!--<legend><i class="fas fa-birthday-cake"></i></legend>-->
-	  <?  
+    <div class="bloquecumples">
+	  <?php   
 	  $cant = count($cumpleanos);
 	  if ($cant > 0) {    
 	   $i=0;
         while($i < $cant) {
 		
-        echo "<div class='brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing'>
+        echo "<div class='cumpleanos brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing'>
                         <div class='media'>
                            
 
@@ -664,6 +517,7 @@ if ( empty($arrAdmin) ) {
                     </div>";
 	   $i++;
     }
+    echo '</div>';
 echo "</table>";
 } else {
     echo "No hay cumpleaños hoy.";
@@ -671,16 +525,89 @@ echo "</table>";
 	  
 </div>
 	 </div>
+   <hr>
+<!--<div class="col-xs-12 col-md-6">
+<legend class="text-center">Dashboard</legend>
+
+  <div class="col-md-6 m-b-md">
+    <div class="w-lg m-x-auto">
+      <canvas
+        class="ex-graph"
+        data-chart="doughnut"
+        data-value="[{ value: <?php  echo $ventasuc[1][1]; ?>, color: '#FFFC0D', label: '<?php  echo $ventasuc[1][0]; ?>' }, { value: <?php  echo $ventasuc[2][1]; ?>, color: '#1bc98e', label: '<?php  echo $ventasuc[2][0]; ?>' }, { value: <?php  echo $ventasuc[3][1]; ?>, color: '#700CE8', label: '<?php  echo $ventasuc[3][0]; ?> <?php  echo $ventasuc[4][1]; ?> <?php  echo $ventasuc[4][0]; ?>' }]"
+        data-segment-stroke-color="#252830">
+      </canvas>
+	    <h4 class="text-muted text-center">Rendimiento de sucursales</h4>
+    </div>
+
+  </div>
+    <div class="col-md-6 m-b-md">
+	  
+    <div class="w-lg m-x-auto"><?php  if ($error5 == '') { $error5 = 1; } if ($error4 == '') { $error4 = 1; } ?>
+      <canvas
+        class="ex-graph"
+        data-chart="doughnut"
+        data-value="[{ value: <?php  echo $error5; ?>, color: '#1ca8dd', label: 'Canjeados' }, { value: <?php  echo $error4; ?>, color: '#1bc98e', label: 'Pendientes' }]"
+        data-segment-stroke-color="#252830">
+      </canvas>
+	    <h4 class="text-muted text-center">Canjeados vs Pendientes</h4>
+    </div>
+
+  </div>	
+</div>-->
+  <div class="col-12 m-b-md">
+<?php  
+   $porcentaje2 = number_format((($topcinco[1]["puntos"]*100)/$topcinco[0]["puntos"]));
+   $porcentaje3 = number_format((($topcinco[2]["puntos"]*100)/$topcinco[0]["puntos"]));
+   $porcentaje4 = number_format((($topcinco[3]["puntos"]*100)/$topcinco[0]["puntos"]));
+   $porcentaje5 = number_format((($topcinco[4]["puntos"]*100)/$topcinco[0]["puntos"]));
+   $porcentaje6 = number_format((($topcinco[5]["puntos"]*100)/$topcinco[0]["puntos"]));
+   $porcentaje7 = number_format((($topcinco[6]["puntos"]*100)/$topcinco[0]["puntos"]));
+   $porcentaje8 = number_format((($topcinco[7]["puntos"]*100)/$topcinco[0]["puntos"]));
+   $porcentaje9 = number_format((($topcinco[8]["puntos"]*100)/$topcinco[0]["puntos"]));
+?>
+	  <h5 class="text-center"><strong>Top Clientes</strong></h5>
+	  <ul class="chart">
+  <li>
+    <span style="height:100%" title="<?php  echo $topcinco[0]["nombre"]." ".$topcinco[0]["apellido"] ?>"></span>
+  </li>
+  <li>
+    <span style="height:<?php  echo $porcentaje2."%" ?>" title="<?php  echo $topcinco[1]["nombre"]." ".$topcinco[1]["apellido"] ?>"></span>
+  </li>
+  <li>
+    <span style="height:<?php  echo $porcentaje3."%" ?>" title="<?php  echo $topcinco[2]["nombre"]." ".$topcinco[2]["apellido"] ?>"></span>
+  </li>
+  <li>
+    <span style="height:<?php  echo $porcentaje4."%" ?>" title="<?php  echo $topcinco[3]["nombre"]." ".$topcinco[3]["apellido"] ?>"></span>
+  </li>
+  <li>
+    <span style="height:<?php  echo $porcentaje5."%" ?>" title="<?php  echo $topcinco[4]["nombre"]." ".$topcinco[4]["apellido"] ?>"></span>
+  </li>
+  <li>
+    <span style="height:<?php  echo $porcentaje6."%" ?>" title="<?php  echo $topcinco[5]["nombre"]." ".$topcinco[5]["apellido"] ?>"></span>
+  </li>
+  <li>
+    <span style="height:<?php  echo $porcentaje7."%" ?>" title="<?php  echo $topcinco[6]["nombre"]." ".$topcinco[6]["apellido"] ?>"></span>
+  </li>
+  <li>
+    <span style="height:<?php  echo $porcentaje8."%" ?>" title="<?php  echo $topcinco[7]["nombre"]." ".$topcinco[7]["apellido"] ?>"></span>
+  </li>
+  <li>
+    <span style="height:<?php  echo $porcentaje9."%" ?>" title="<?php  echo $topcinco[8]["nombre"]." ".$topcinco[8]["apellido"] ?>"></span>
+  </li>
+</ul>  
+  </div>
+  <hr>
 	<div class="col-xs-12">
  			<form class="form-horizontal">
               <fieldset>
-              <legend class="text-center">Consultas<hr class="linea"></legend>
+              <legend class="text-center">Consultas</legend>
 
               <div class="panel-group">
                <div class="panel panel-default">
                 <div class="panel-heading">
                 <h4 class="panel-title">
-                <a data-toggle="collapse" class="collapsed" href="#collapse3">Consulta de Vouchers Pendientes</a>
+                <a data-bs-toggle="collapse" class="collapsed" href="#collapse3">Consulta de Cupones Pendientes</a>
                 </h4>
                 </div>
                 <div id="collapse3" class="panel-collapse collapse">
@@ -699,7 +626,7 @@ echo "</table>";
                   </thead>
                   
                 </table>
-                <p class="totalimp">Importe total pendiente: $ <? echo $error4; ?></p>
+                <p class="totalimp">Importe total pendiente: $ <?php  echo $error4; ?></p>
                 </div>
                 
                </div>
@@ -709,7 +636,7 @@ echo "</table>";
                <div class="panel panel-default">
                 <div class="panel-heading">
                 <h4 class="panel-title">
-                <a data-toggle="collapse" class="collapsed" href="#collapse2">Consulta de Vouchers Utilizados</a>
+                <a data-bs-toggle="collapse" class="collapsed" href="#collapse2">Consulta de Cupones Utilizados</a>
                 </h4>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
@@ -729,7 +656,7 @@ echo "</table>";
                   </thead>
                   
                 </table>
-                <p class="totalimp">Importe total canjeado: $ <? echo $error5; ?></p>
+                <p class="totalimp">Importe total canjeado: $ <?php  echo $error5; ?></p>
                 </div>
                 
                </div>
@@ -740,7 +667,7 @@ echo "</table>";
                <div class="panel panel-default">
                 <div class="panel-heading">
                 <h4 class="panel-title">
-                <a data-toggle="collapse" class="collapsed" href="#collapse1">Consulta de Socios y Puntos</a>
+                <a data-bs-toggle="collapse" class="collapsed" href="#collapse1">Consulta de Socios y Puntos</a>
                 </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
@@ -769,7 +696,7 @@ echo "</table>";
                <div class="panel panel-default">
                 <div class="panel-heading">
                 <h4 class="panel-title">
-                <a data-toggle="collapse" class="collapsed" href="#collapse4">Historial de Acumulación</a>
+                <a data-bs-toggle="collapse" class="collapsed" href="#collapse4">Historial de Acumulación</a>
                 </h4>
                 </div>
                 <div id="collapse4" class="panel-collapse collapse">
@@ -805,7 +732,7 @@ echo "</table>";
 
         <!-- Footer -->
         <footer>
-          <? require_once '../footer.php' ?>
+          <?php  require_once '../footer.php' ?>
         </footer>
 
     <!-- /.container -->
@@ -1107,25 +1034,6 @@ echo "</table>";
 } );
 </script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/responsive-tabs.js"></script>
-			<script type="text/javascript">
-              $( '#myTab a' ).click( function ( e ) {
-                e.preventDefault();
-                $( this ).tab( 'show' );
-              } );
-        
-              $( '#moreTabs a' ).click( function ( e ) {
-                e.preventDefault();
-                $( this ).tab( 'show' );
-              } );
-        
-              ( function( $ ) {
-                  fakewaffle.responsiveTabs( [ 'xs', 'sm' ] );
-              } )( jQuery );
-        
-            </script>
 	<script type="text/javascript">
 // Load google charts
 google.charts.load('current', {'packages':['corechart']});
@@ -1144,7 +1052,7 @@ function drawChart() {
 
   // Optional; add a title and set the width and height of the chart
   var options = {'title':'Rendimiento de sucursales', 'width':270, 'height':280, 'backgroundColor': 'transparent', is3D:false, legend: 'none',
-          pieSliceText: 'label', pieStartAngle: 100, pieSliceTextStyle: {color: 'black', fontName: 'Maven Pro', fontSize: 7}};
+          pieSliceText: 'label', pieStartAngle: 100, pieSliceTextStyle: {color: 'white', fontName: 'Maven Pro', fontSize: 7}};
 
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -1159,27 +1067,28 @@ google.charts.setOnLoadCallback(drawChart);
 
 // Draw the chart and set the chart values
 function drawChart() {
-<? if ($error4 >= 100) { ?>
+<?php  if ($error4 >= 100) { ?>
   var data = google.visualization.arrayToDataTable([
-  ['Vouchers', 'Estado'],
+  ['Cupones', 'Estado'],
   ['Pendientes', parseInt('<?php echo $error4; ?>')],
   ['Canjeados', parseInt('<?php echo $error5; ?>')]
 ]);
- <? } else { ?>
+ <?php  } else { ?>
   var data = google.visualization.arrayToDataTable([
-  ['Vouchers', 'Estado'],
+  ['Cupones', 'Estado'],
   ['Canjeados', parseInt('<?php echo $error5; ?>')]
 ]);
-<? } ?>
+<?php  } ?>
   // Optional; add a title and set the width and height of the chart
   var options = {'title':'Canjeados vs Pendientes', 'width':270, 'height':280, 'backgroundColor': 'transparent', is3D:false, legend: 'none',
-          pieSliceText: 'label', pieStartAngle: 100, pieSliceTextStyle: {color: 'black', fontName: 'Maven Pro', fontSize: 7}};
+          pieSliceText: 'label', pieStartAngle: 100, pieSliceTextStyle: {color: 'white', fontName: 'Maven Pro', fontSize: 7}};
 
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
   chart.draw(data, options);
 }
 </script>
+<?php if (($_SESSION['usuarioadmin']) == 'admingeneral') { ?>
 <script>
 	var numerosid = document.querySelectorAll(".numeroid");
 	var id;
@@ -1187,6 +1096,7 @@ function drawChart() {
 		numerosid[id].style.cursor = "not-allowed";
 	}
 </script>
+<?php } ?>
           
 				
 <script>
@@ -1210,7 +1120,8 @@ function drawChart() {
 			$("#ticketconf").val(ticket);
 			$("#sucursalconf").val(sucursal);
 			$("#uniqueidconf").val(uniqueid);
-			$("#ModalAcum").modal();
+      var myModal = new bootstrap.Modal(document.getElementById("ModalAcum"), {});
+        myModal.show();
 		  });
 		});
 </script>

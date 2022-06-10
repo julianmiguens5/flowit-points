@@ -5,6 +5,7 @@ function esUsuario ( $usuario, $password, $conexion ) {
 	// verifica que esten los dos campos completos.
 	if ($usuario=='' || $password=='') return false;
 	
+	mysqli_set_charset($conexion,"utf8");
 	// busqueda de los datos de usuarios para loguear.
 	$query = "SELECT * FROM `usuarios` WHERE `usuario`='$usuario'";
 	$resultado = mysqli_query ($conexion, $query);

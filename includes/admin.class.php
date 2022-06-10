@@ -7,8 +7,8 @@ abstract class Conexion
 {
 		public function con()
 	{	
-		$puntero=new mysqli('localhost', 'root', '', 'iflow_loyalty');     //DATOS DE CONEXION LOCAL
-		//$puntero=new mysqli('localhost', 'fw2011_sors', 'foconet2017', 'fw2011_sors_parmegiano');      //DATOS DE CONEXION SERVIDOR
+		//$puntero=new mysqli('localhost', 'root', '', 'iflow_loyalty');     //DATOS DE CONEXION LOCAL
+		$puntero=new mysqli('localhost', 'flowit_admin', 'JmaR7F*.Avf2', 'flowit_loyalty');      //DATOS DE CONEXION SERVIDOR
 		$puntero->set_charset("utf8");
 		return $puntero;
 	}
@@ -49,18 +49,21 @@ class Stores extends Conexion
 }
 
 function generar_voucher_num($longitud){ 
+		$key = '';
        $pattern = '1234567890';
 		 $max = strlen($pattern)-1;
 		 for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
 		 return $key;
 } 
 function generar_voucher_abc($longitud){ 
+	$key = '';
        $pattern = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		 $max = strlen($pattern)-1;
 		 for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
 		 return $key;
 } 
 function generar_password_abc($longitud){ 
+	$key = '';
        $pattern = 'abcdefghijklmnopqrstuvwxyz';
 		 $max = strlen($pattern)-1;
 		 for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
@@ -87,11 +90,7 @@ function estilo_est()
 	border: 5px double #CB9865;"';
 	return $estilo;
 }
-function sucursales_est()
-{
-	$sucursales = "Nuestras sucursales: <br><ul><li> Arévalo 2843, Las Cañitas </li><li> Av. Callao 1861, Recoleta </li><li> Av. Pedro Goyena 1798, Caballito </li><li> Colombres 335, Las Lomitas, Lomas de Zamora </li><li> Av. Santa María 4625, Rincón de Milberg, Tigre</li></ul>";
-	return $sucursales;
-}
+
 function mail_est()
 {
 	$mailest = "sorsrewards@foconetworks.com";
@@ -115,16 +114,17 @@ class inscripcion extends Conexion
 		$nombre_est = nombre_est();
 		$web = web_est();
 		$estilo = estilo_est();
-		$sucursales = sucursales_est();
 		$puntos = 0;
+		$nombrecom = new Stores;
+		$nombrecom=$nombrecom->traerStore();
 		$descripcion = "Puntos de bienvenida";
 		$fecha = date('Y/m/d');
 		//$nvouchernum = generar_voucher_num(6);
 		//$nvoucher = $nvoucherabc . $nvouchernum;
 		//$i = 0;
 		$consulta = "SELECT usuario FROM usuarios WHERE usuario='$dni'";
-   		$resultado = mysql_query($consulta);
-  		$count = mysql_num_rows($resultado);
+   		$resultado = mysqli_query(parent::con(),$consulta);
+  		$count = mysqli_num_rows($resultado);
 		if($count!=0){
     	$emailError = "Provided Email is already in use.";
    		}
@@ -143,7 +143,7 @@ class inscripcion extends Conexion
 			$mail->Port       = 587;
 			$mail->Username = "sorsrewards@foconetworks.com";
 			$mail->Password = "foconet2017";
-			$mail->setFrom("$emailest", 'El Parmegiano');
+			$mail->setFrom("$emailest", $nombrecom['st_name']);
 			$mail->AddAddress("$email");
 			$mail->IsHTML(true);
 			$mail->CharSet="utf-8";
@@ -170,7 +170,7 @@ class inscripcion extends Conexion
 			$msg .= '<br>';
 			$msg .= '<hr>';
 			$msg .= '</p>';
-			$msg .= '<img src="http://www.sorsrewards.com/img/parmegiano.png" alt="" style="max-width:300px;" />';
+			$msg .= '<img src="https://flowit.es/loyalty/img/logos/'.$nombrecom['st_alias'].'.png" alt="" style="max-width:300px;" />';
 			$msg .= '</html></body>';
 			$mail->MsgHTML($msg);
 if(!$mail->Send())
@@ -213,16 +213,17 @@ class inscripcionsoc extends Conexion
 		$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 		$nombre_est = nombre_est();
 		$estilo = estilo_est();
-		$sucursales = sucursales_est();
 		$puntos = 0;
 		$descripcion = "Puntos de bienvenida";
 		$fecha = date('Y/m/d');
+		$nombrecom = new Stores;
+		$nombrecom=$nombrecom->traerStore();
 		//$nvouchernum = generar_voucher_num(6);
 		//$nvoucher = $nvoucherabc . $nvouchernum;
 		//$i = 0;
 		$consulta = "SELECT usuario FROM usuarios WHERE usuario='$dni'";
-   		$resultado = mysql_query($consulta);
-  		$count = mysql_num_rows($resultado);
+   		$resultado = mysqli_query(parent::con(),$consulta);
+  		$count = mysqli_num_rows($resultado);
 		if($count!=0){
     	$emailError = "Provided Email is already in use.";
    		}
@@ -242,7 +243,7 @@ class inscripcionsoc extends Conexion
 			$mail->Port       = 587;
 			$mail->Username = "sorsrewards@foconetworks.com";
 			$mail->Password = "foconet2017";
-			$mail->setFrom("$emailest", 'El Parmegiano');
+			$mail->setFrom("$emailest", $nombrecom['st_name']);
 			$mail->AddAddress("$email");
 			$mail->IsHTML(true);
 			$mail->CharSet="utf-8";
@@ -269,7 +270,7 @@ class inscripcionsoc extends Conexion
 			$msg .= '<br>';
 			$msg .= '<hr>';
 			$msg .= '</p>';
-			$msg .= '<img src="http://www.sorsrewards.com/img/parmegiano.png" alt="" style="max-width:300px;"  />';
+			$msg .= '<img src="https://flowit.es/loyalty/img/logos/'.$nombrecom['st_alias'].'.png" alt="" style="max-width:300px;"  />';
 			$msg .= '</html></body>';
 			$mail->MsgHTML($msg);
 if(!$mail->Send())
@@ -316,26 +317,27 @@ class acumulacion extends Conexion
 		$descripcion = "Acumulación de puntos";
 		$fecha = date('Y-m-d H:i:sa');
 		$consulta = "SELECT usuario FROM usuarios WHERE usuario='$dni'";
-   		$resultado = mysql_query($consulta);
-  		$count = mysql_num_rows($resultado);
+   		$resultado = mysqli_query(parent::con(),$consulta);
+  		$count = mysqli_num_rows($resultado);
 		if($count!=0){
 		$consultanomape = mysqli_query(parent::con(),"SELECT `apellido`,`nombre` FROM `usuarios` WHERE `usuario`='$dni'");
 		$rownomape=mysqli_fetch_array($consultanomape);
 		$apellido=$rownomape['apellido'];
 		$nombre=$rownomape['nombre'];
 		$result=mysqli_query(parent::con(),"INSERT INTO `acumulacion`(`fecha`,`dni`,`apellido`,`nombre`,`ticket`,`monto`,`puntos`,`descripcion`,`sucursal`,`uniqueid`) VALUES ('$fecha','$dni','$apellido','$nombre','$ticket','$monto','$puntos','$descripcion','$sucursal','$uniqueid')");
-		$resultmail=mysql_query("SELECT mail FROM usuarios WHERE usuario='$dni'");
-		$row=mysql_fetch_array($resultmail);
+		$resultmail=mysqli_query(parent::con(),"SELECT mail FROM usuarios WHERE usuario='$dni'");
+		$row=mysqli_fetch_array($resultmail);
 		$email=$row['mail'];
-		$resultpuntos=mysql_query("SELECT puntos FROM usuarios WHERE usuario='$dni'");
-		$row2=mysql_fetch_array($resultpuntos);
+		$resultpuntos=mysqli_query(parent::con(),"SELECT puntos FROM usuarios WHERE usuario='$dni'");
+		$row2=mysqli_fetch_array($resultpuntos);
 		$puntostotales=($row2['puntos']+$puntos);
 		$suma=mysqli_query(parent::con(),"UPDATE usuarios SET puntos=puntos+'$puntos' WHERE usuario='$dni'");
 		$nombre_est = nombre_est();
 		$web = web_est();
 		$estilo = estilo_est();
 		$emailest = mail_est();
-		$sucursales = sucursales_est();
+		$nombrecom=new Stores;
+		$nombrecom=$nombrecom->traerStore();
 		require "class.phpmailer.php";
 		require "class.smtp.php";
 			$mail = new PHPMailer();
@@ -346,7 +348,7 @@ class acumulacion extends Conexion
 			$mail->Port       = 587;
 			$mail->Username = "sorsrewards@foconetworks.com";
 			$mail->Password = "foconet2017";
-			$mail->setFrom("$emailest", 'El Parmegiano');
+			$mail->setFrom("$emailest", $nombrecom['st_name']);
 			$mail->AddAddress("$email");
 			$mail->IsHTML(true);
 			$mail->CharSet="utf-8";
@@ -366,7 +368,7 @@ class acumulacion extends Conexion
 			$msg .= '<br>';
 			$msg .= '<hr>';
 			$msg .= '</p>';
-			$msg .= '<img src="http://www.sorsrewards.com/img/parmegiano.png" alt="" style="max-width:300px;"  />';
+			$msg .= '<img src="https://flowit.es/loyalty/img/logos/'.$nombrecom['st_alias'].'.png" alt="" style="max-width:300px;"  />';
 			$msg .= '</html></body>';
 			$mail->MsgHTML($msg);
 			if(!$mail->Send())
@@ -403,8 +405,13 @@ class restaacum extends Conexion
 		{
 			$montopuntos = -(filter_input(INPUT_POST, 'montopuntos', FILTER_SANITIZE_SPECIAL_CHARS));
 			$restaracumulacion=mysqli_query(parent::con(),"INSERT INTO `acumulacion`(`fecha`,`dni`,`apellido`,`nombre`,`descripcion`,`puntos`) VALUES ('$fecha','$dni','$apellido','$nombre','$descripcion','$montopuntos')");
+			return $restaracumulacion;
+		} else {
+			$error = true;
+			return $error;
 		}
-		return $restaracumulacion;
+		
+
 	}
 }
 
@@ -434,6 +441,7 @@ class restapuntos extends Conexion
 		else
 		{
 			$error=true;
+			return $error;
 		}
 	}
 }
@@ -553,6 +561,8 @@ class canjevoucher extends Conexion
 			$montopuntos = filter_input(INPUT_POST, 'montopuntos', FILTER_SANITIZE_SPECIAL_CHARS);
 			$premio = filter_input(INPUT_POST, 'premio', FILTER_SANITIZE_SPECIAL_CHARS);
 			$puntostotales = $_SESSION['puntos'];
+			$nombrecom=new Stores;
+			$nombrecom=$nombrecom->traerStore();
 			if ($puntostotales >= $montopuntos)
 			{	
 			$canjevoucher=mysqli_query(parent::con(),"INSERT INTO `vouchers`(`n_voucher`,`dni`,`apellido`,`nombre`,`fechacanje`,`importe`,`premio`,`puntos`) VALUES ('$nvoucher','$dni','$apellido','$nombre','$fecha','$importe','$premio','$montopuntos')");
@@ -560,7 +570,6 @@ class canjevoucher extends Conexion
 			$web = web_est();
 			$estilo = estilo_est();
 			//$webreservas = "http://reservaturno.com/results?search=barber%20%25job";
-			$sucursales = sucursales_est();
 			$emailest = mail_est();
 			require "class.phpmailer.php";
 			require "class.smtp.php";
@@ -572,7 +581,7 @@ class canjevoucher extends Conexion
 			$mail->Port       = 587;
 			$mail->Username = "sorsrewards@foconetworks.com";
 			$mail->Password = "foconet2017";
-			$mail->setFrom("$emailest", 'El Parmegiano');
+			$mail->setFrom("$emailest", $nombrecom['st_name']);
 			$mail->AddAddress("$email");
 			$mail->IsHTML(true);
 			$mail->CharSet="utf-8";
@@ -616,7 +625,7 @@ class canjevoucher extends Conexion
 			//$msg .= "Proximamente Sucursal Villa del Parque. Nogoyá 3272, Ciudad Autónoma de Buenos Aires.";
 			//$msg .= '<br>';
 			//$msg .= '<br>';
-			$msg .= '<img src="http://www.sorsrewards.com/img/parmegiano.png" alt="" style="max-width:300px;"  />';
+			$msg .= '<img src="https://www.flowit.es/loyalty/img/logos/'.$nombrecom['st_alias'].'.png" alt="" style="max-width:300px;"  />';
 			$msg .= '</html></body>';
 			$mail->MsgHTML($msg);
 			if(!$mail->Send())
@@ -629,6 +638,7 @@ class canjevoucher extends Conexion
 			else
 			{
 				$error=true;
+				return $error;
 			}
 		}
 }
@@ -637,8 +647,8 @@ class sumaimportes extends Conexion
 {	
 	public function sumarimportes()
 	{
-		$result = mysql_query("SELECT SUM(importe) as total FROM vouchers WHERE canjeado=0");
-		$row = mysql_fetch_array($result, MYSQL_ASSOC);
+		$result = mysqli_query(parent::con(),"SELECT SUM(importe) as total FROM vouchers WHERE canjeado=0");
+		$row = mysqli_fetch_assoc($result);
 		return $row["total"];
 	}
 }
@@ -647,8 +657,8 @@ class sumacanjeado extends Conexion
 {	
 	public function sumarcanjeado()
 	{
-		$result = mysql_query("SELECT SUM(importe) as total FROM vouchers WHERE canjeado=1");
-		$row = mysql_fetch_array($result, MYSQL_ASSOC);
+		$result = mysqli_query(parent::con(),"SELECT SUM(importe) as total FROM vouchers WHERE canjeado=1");
+		$row = mysqli_fetch_assoc($result);
 		return $row["total"];
 	}
 }
@@ -695,7 +705,7 @@ class top5 extends Conexion
 {
 	public function topcinco()
 	{
-		$result = mysqli_query(parent::con(),"SELECT nombre, apellido, puntos FROM usuarios ORDER BY puntos DESC LIMIT 5");
+		$result = mysqli_query(parent::con(),"SELECT nombre, apellido, puntos FROM usuarios ORDER BY puntos DESC LIMIT 10");
 		while ($row = mysqli_fetch_assoc($result))
 		{
 			$res_return[] = $row;
@@ -735,6 +745,8 @@ class aceptarvou extends Conexion
 						$web = web_est();
 						$estilo = estilo_est();
 						$emailest = mail_est();
+						$nombrecom=new Stores;
+						$nombrecom=$nombrecom->traerStore();
 						require "class.phpmailer.php";
 						require "class.smtp.php";
 						$mail = new PHPMailer();
@@ -745,7 +757,7 @@ class aceptarvou extends Conexion
 						$mail->Port       = 587;
 						$mail->Username = "sorsrewards@foconetworks.com";
 						$mail->Password = "foconet2017";
-						$mail->setFrom("$emailest", 'El Parmegiano');
+						$mail->setFrom("$emailest", $nombrecom['st_name']);
 						$mail->AddAddress("$email");
 						$mail->IsHTML(true);
 						$mail->CharSet="utf-8";
@@ -765,7 +777,7 @@ class aceptarvou extends Conexion
 						$msg .= '<br>';
 						$msg .= '<hr>';
 						$msg .= '</p>';
-						$msg .= '<img src="http://www.sorsrewards.com/img/parmegiano.png" alt="" style="max-width:300px;"  />';
+						$msg .= '<img src="https://flowit.es/loyalty/img/logos/'.$nombrecom['st_alias'].'.png" alt="" style="max-width:300px;"  />';
 						$msg .= '</html></body>';
 						$mail->MsgHTML($msg);
 						if(!$mail->Send())
@@ -806,61 +818,66 @@ class vouchers extends Conexion {
 							if($row_cnt>0) {
 								while($prod=$result_prod->fetch_assoc())
 								{
-								echo '<div class="col-sm-4 col-lg-4 col-md-4">
-                        			<div class="thumbnail">
-                            			<img class="logo-vouchers" src="../img/'.$imagenv.'" alt="">
-                                <!-- <div class="col-xs-12">
-                                <h3 class="nombrevoucher text-center">'.$nombrevoucher.'</h3>
-                                </div>-->
-                            	<div class="caption">
-                                <h4>'.$prod['valorpuntos'].' Puntos';
-								if (($prod['valordinero']) > 0) {
-									echo ' + $ '.$prod['valordinero'].'</h4>';
-								}	else {
-									echo '</h4>';
-								}
-                               echo '<h4>'.$prod['item'].'
-                                </h4>
-                                <p>No acumulable con otras promociones.</p>
-                                <button id="canjear" class="btn btn-lacabana btn-block" data-bs-toggle="modal" data-bs-target="#num'.$prod['ID'].'" name="canjear" value="canjear">CANJEAR</button>
-                        <!-- Modal -->
-                                  <div class="modal fade" id="num'.$prod['ID'].'" role="dialog">
-                                    <div class="modal-dialog">
-                            
-                              <!-- Modal content-->
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <div class="container-fluid">
-                                                        <div class="row">
-                                                        <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">CANCELAR</button>
-                                                        </div>
-                                                    </div>  
+								echo '
+
+								<div class="col-sm-4 col-lg-4 col-md-4">
+                        			<div class="thumbnail" style="background-image: url(../loyalty/img/imgcupon/'.$prod['img'].');">
+                                        <div class="row fondoRow">
+                                        <div class="col-4">
+                                            <div class="imagenvou">
                                                 
-                                                <!-- Form Name -->
-                                                <br>
-                                                <legend class="text-left alert alert-success alert-dismissible">¿Confirma canje de '.$prod['item'].'? Se le descontarán '.$prod['valorpuntos'].' puntos de su cuenta.</legend>
-                                                <div class="form-group">
-                                                  <label class="control-label" for="submit"></label>
-                                                  <div>
-                                                  <form method="post">
-                                                    <input type="hidden" name="importe" value="'.$prod['valorpuntos'].'">
-                                                    <input type="hidden" name="montopuntos" value="'.$prod['valorpuntos'].'">
-                                                    <input type="hidden" name="premio" value="'.$prod['item'].'">
-                                                    <button id="submit" name="canje1" class="btn btn-primary" value="canje1">ACEPTAR</button>
-                                                  </form>
-                                                  </div>
-                                                </div>
                                             </div>
-                              
+                                        </div>
+                            			
+ 
+                                    <div class="col-8">
+                                        <div class="caption">
+                                        <h4>'.$prod['valorpuntos'].' Puntos';
+											if (($prod['valordinero']) > 0) {
+												echo ' + $ '.$prod['valordinero'].'</h4>';
+											}	else {
+												echo '</h4>';
+											}
+										echo '<h4>'.$prod['item'].'
+											</h4>
+                                        <button id="canjear" class="btn btn-sors btn-canje" data-bs-toggle="modal" data-bs-target="#num'.$prod['ID'].'" name="canjear" value="canjear">CANJEAR</button>
                                         </div>
                                     </div>
-                                </div>
+
 
                             </div>
                                 
 
                         </div>
-                    </div>';
+                    </div>
+					
+					<!-- Modal -->
+					<div class="modal fade" id="num'.$prod['ID'].'" role="dialog">
+					  <div class="modal-dialog modal-lg">
+			  
+				<!-- Modal content-->
+								<div class="modal-content custom-modal">
+								  <!-- Form Name -->
+								  <br>
+								  <div class="modal-body">
+								  <legend class="text-center">¿Confirma canje de '.$prod['item'].'?<br>Se le descontarán '.$prod['valorpuntos'].' puntos de su cuenta.</legend>
+								  <div class="form-group">
+									<label class="control-label" for="submit"></label>
+									<div>
+									<form method="post">
+									  <input type="hidden" name="importe" value="'.$prod['valorpuntos'].'">
+									  <input type="hidden" name="montopuntos" value="'.$prod['valorpuntos'].'">
+									  <input type="hidden" name="premio" value="'.$prod['item'].'">
+									  <button id="submit'.$prod['ID'].'" name="canje1" class="btn btn-primary btn-sors" value="canje1">ACEPTAR</button>
+									  <button type="button" class="btn pull-right btn-sors" data-bs-dismiss="modal">CANCELAR</button>
+									</form>
+									</div>
+								  </div>
+							  </div>
+				
+						  </div>
+					  </div>
+				  </div>';
 								}
 		}
 	}
@@ -988,6 +1005,8 @@ class recuperarpass extends Conexion
 					$password=$rowrecup['recup-pass'];
 					$web = web_est();
 					$emailest = mail_est();
+					$nombrecom=new Stores;
+					$nombrecom=$nombrecom->traerStore();
 					require "class.phpmailer.php";
 						require "class.smtp.php";
 						$mail = new PHPMailer();
@@ -998,7 +1017,7 @@ class recuperarpass extends Conexion
 						$mail->Port       = 587;
 						$mail->Username = "sorsrewards@foconetworks.com";
 						$mail->Password = "foconet2017";
-						$mail->setFrom("$emailest", 'El Parmegiano');
+						$mail->setFrom("$emailest", $nombrecom['st_name']);
 						$mail->AddAddress("$email");
 						$mail->IsHTML(true);
 						$mail->CharSet="utf-8";
@@ -1023,7 +1042,7 @@ class recuperarpass extends Conexion
 			$msg .= '<br>';
 			$msg .= '<hr>';
 			$msg .= '</p>';
-			$msg .= '<img src="http://www.sorsrewards.com/img/parmegiano.png" alt="" style="max-width:300px;"  />';
+			$msg .= '<img src="https://flowit.es/loyalty/img/logos/'.$nombrecom['st_alias'].'.png" alt="" style="max-width:300px;"  />';
 			$msg .= '</html></body>';
 			$mail->MsgHTML($msg);
 				if(!$mail->Send())

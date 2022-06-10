@@ -7,9 +7,9 @@ function esAdmin ( $usuarioadmin, $passwordadmin, $conexion ) {
 	
 	// busqueda de los datos de admin para loguear.
 	$query = "SELECT * FROM `administradores` WHERE `usuarioadmin`='$usuarioadmin'";
-	$resultado = mysql_query ($query, $conexion);
-	$row = mysql_fetch_array ($resultado);
-	echo mysql_error();
+	$resultado = mysqli_query ($conexion, $query);
+	$row = mysqli_fetch_array ($resultado);
+	//echo mysql_error();
 	$password_from_db = $row ['passwordadmin'];
 	unset($query);
 			

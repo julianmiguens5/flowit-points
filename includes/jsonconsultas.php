@@ -1,18 +1,7 @@
 <?php
-/* Database connection start web */
 
-$servername = "localhost";
-$username = "fw2011_sors";
-$password = "foconet2017";
-$dbname = "fw2011_sors_parmegiano";
+require_once("conectjson.php");
 
-/* Database connection start local */
-/*
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "sors";
-*/
 $conn = mysqli_connect($servername, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());
 
 /* Database connection end */

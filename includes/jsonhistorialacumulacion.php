@@ -1,19 +1,8 @@
 
 
 <?php
-/* Database connection start web */
-/*
-$servername = "localhost";
-$username = "fw2011_sors";
-$password = "foconet2017";
-$dbname = "fw2011_sors_parmegiano";
-*/
-/* Database connection start local */
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "iflow_loyalty";
+require_once("conectjson.php");
 
 $conn = mysqli_connect($servername, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());
 
@@ -61,12 +50,12 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 
 	$nestedData[] = $row["fechala"];
 	$nestedData[] = $row["dni"];
-	$nestedData[] = $row["apellido"];
-	$nestedData[] = $row["nombre"];
+	$nestedData[] = utf8_encode($row["apellido"]);
+	$nestedData[] = utf8_encode($row["nombre"]);
 	$nestedData[] = '$ '.$row["monto"];
 	$nestedData[] = $row["puntos"];
-	$nestedData[] = $row["descripcion"];
-	$nestedData[] = $row["sucursal"];
+	$nestedData[] = utf8_encode($row["descripcion"]);
+	$nestedData[] = utf8_encode($row["sucursal"]);
 	$data[] = $nestedData;
 }
 

@@ -1,9 +1,31 @@
 @import 'colores', 'fonts', 'varios', 'mixins';
 
+$min_width: 320px;
+$max_width: 1200px;
+$min_font: 16px;
+$max_font: 24px;
+
+html {
+  @include fluid-type($min_width, $max_width, $min_font, $max_font);
+}
+
 body {
-	background-color: #1a1a1a;
+	background-color: $darkgray;
 	font-family: $fontfamilypri;/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+.flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .home {
 	background-color:#000;
 }
@@ -38,8 +60,53 @@ padding-bottom: 10px;
 }
 
 .logo-primary{
-  width: 200px;
-  padding: 10px;
+  width: 250px;
+  padding: 5px;
+}
+
+.linkHeader{
+  border: none;
+  color: $black;
+  font-size: 20px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0px;
+
+  &:hover{
+    background-color: $primarycolor;
+    
+  }
+}
+
+.spaceIconos{
+  gap: 10px;
+  padding-right: 20px;
+}
+
+.iconosHeader{
+  background-color: $primarycolor;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  list-style-type: none;
+  display: flex;
+
+  i{
+    color: $white;
+    text-align: center;
+    display: block;
+    margin: auto;
+    line-height: inherit;
+  }
+
+  a{
+    color: $white;
+    text-align: center;
+    display: block;
+    margin: auto;
+    line-height: inherit;
+  }
 }
 
 @media screen and (max-width: 767px)
@@ -70,14 +137,8 @@ padding-bottom: 10px;
 	margin-left: 20px;
 }
 #puntos i {
-	font-size: 10px;
-	margin-left: -20px;
     margin-top: 10px;
-    color: red;
-}
-#puntos p {
-	color: red;
-	margin-left: 20px;
+    color: darkolivegreen;
 }
 .alerta {
 	color: green !important;
@@ -90,6 +151,21 @@ legend {
 }
 h4 {
 	font-weight:bold;
+}
+
+button{
+  border: none;
+  background-color: transparent;
+}
+
+.menuAdmin{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.menuAdmin li{
+  list-style-type: none;
 }
 /* Gradient transparent - color - transparent */
 
@@ -137,7 +213,6 @@ h4 {
 #login h4
 {
 	margin-left:0px;
-	font-size: 1.8em;
 }
 #login a, #loginadmin a
 {
@@ -171,6 +246,39 @@ h4 {
 	text-align: justify;
 	color:#000;
 }
+
+.custom-modal{
+  background-color: $black;
+  color: $white;
+  border: 2px solid $primarycolor;
+}
+
+.btn-close-modal{
+  color: $white;
+}
+
+i{
+  font-family: "FontAwesome";
+  font-style: normal;
+  color: $black;
+}
+
+.d-sm-block-custom{
+  display: flex !important;
+}
+
+.formRegistro{
+  input {
+    margin-bottom: 15px;
+    background-color: $gris;
+  }
+
+  input::placeholder{
+    color: $white;
+  }
+}
+
+
 /*--------------LINKS-----------------------*/
 .links {
 	padding:0px !important;
@@ -198,10 +306,6 @@ h4 {
 	font-size: 18px;
 	font-weight: bold;
 }*/
-
-.accordion, .accordion * {
-
-}
  
 .accordion {
     overflow:hidden;
@@ -292,14 +396,13 @@ h4 {
 
 /*--------------MOVIMIENTOS-----------------------*/
 #movimientos {
-	background-image: url("../img/binding_light.png");
-	background-repeat: repeat;
+	color: $white;
 	padding:10px;
 	padding-top: 20px;
 	-webkit-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
 	box-shadow: 0px 0px 15px 3px rgba(0,0,0,0.75);
-
+  font-weight: $regular;
 }
 .movimientos {
 	margin-top:-20px;
@@ -307,6 +410,38 @@ h4 {
 	padding-top: 35px;
 	font-weight: bold;
 
+}
+
+#movimientos h4{
+  font-weight: $regular;
+
+  &:hover{
+    color: $primarycolor;
+  }
+
+  a{
+    &:hover{
+      color: $primarycolor;
+    }
+  }
+
+  
+}
+
+.panel-body{
+
+    label{
+      color: $white !important;
+    }
+
+}
+
+div.dataTables_wrapper div.dataTables_info{
+  color: $white;
+}
+
+.paginate_button a{
+  color: $white;
 }
 
 .movmargen {
@@ -372,19 +507,45 @@ border: 1px solid #000000;
 /*--------------VOUCHERS-----------------------*/
 .beneficios {
 	color: #fff;
-	font-weight: bold;
+}
+
+.fondoRow{
+  height: 100%;
 }
 
 .caption {
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(20,20,20,0.9);
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-bottomright: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 100%;
+    justify-content: space-around;
+    clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+    padding-left: 55px;
 }
 
 .caption h4 {
-    white-space: nowrap;
-	text-align: center;
+  white-space: normal;
+  text-align: center;
+  font-weight: $regular;
+  margin: 10px;
+  font-size: 0.8em;
 }
 #vouchers {
+  background-color: #272727;
 	padding-bottom:15px;
+  padding-top: 15px;
+
+  legend{
+    font-weight: $regular;
+  }
 }
 .logo-vouchers {
 	width: 120px !important;
@@ -409,15 +570,43 @@ border: 1px solid #000000;
     color: #d17581;
 }
 .thumbnail {
-    padding: 10px;
+    background-image: url("../img/imghome/IMG_1774.jpg");
+    background-size: cover;
+    height: 100%;
     background-color: #0f0f0f;
     margin: 10px 0px;
     color: white;
+    border-radius: 10px;
+    border: 2px solid $primarycolor;
+    height: 220px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+
+.imagenvou{
+  
+  -webkit-border-top-left-radius: 10px;
+-webkit-border-bottom-left-radius: 10px;
+-moz-border-radius-topleft: 10px;
+-moz-border-radius-bottomleft: 10px;
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
 }
 
 .thumbnail .caption-full {
     padding: 9px;
     color: #333;
+}
+
+.btn-canje{
+  width: fit-content;
+  margin-bottom: 10px;
+  border: 1px solid $primarycolor !important;
+}
+
+#usuarios i{
+  color: darkolivegreen;
+  font-size: 1.5em;
 }
 /*--------------FOOTER-----------------------*/
 footer {
@@ -429,6 +618,10 @@ footer {
 }
 @media screen and (max-width: 767px) {
 	footer { visibility: hidden; }
+
+  .d-sm-block-custom{
+    display: none !important;
+  }
 }
 #footerlogin {
 	margin-top:100px;
@@ -456,7 +649,39 @@ box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.75);
 }
 /* ADMINISTRADOR - 2DA PARTE */
 #administrador {
+  background-color: $admincolor;
 	padding-top: 80px !important;
+  color: $white;
+  font-size: 0.65em;
+}
+
+.nav-tabs{
+  border: none;
+}
+
+#administrador .formRegistro{
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(206, 128, 84, 1);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#administrador .fieldsetForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fieldsetForm input{
+  width: 300px;
+}
+
+.iconoSalir{
+  font-family: 'FontAwesome' !important;
+}
+
+legend{
+  font-weight: $regular;
 }
 
 .flechasort
@@ -479,6 +704,24 @@ box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.75);
 	font-weight:bold !important;
 }
 
+.alert-success{
+    color: $admincolor;
+    border: none;
+    background: white;
+    margin-top: 15px;
+    font-size: 0.7em;
+    font-weight: $regular;
+}
+
+.alert-danger{
+  color: $admincolor;
+  border: none;
+    background: white;
+    margin-top: 15px;
+    font-size: 0.7em;
+    font-weight: $regular;
+}
+
 table.dataTable thead th {
   background: transparent !important;
   white-space: nowrap;
@@ -489,6 +732,21 @@ table.dataTable thead span.sort-icon {
   padding-left: 5px;
   width: 16px;
   height: 16px;
+}
+
+table.dataTable thead .sorting:after{
+  font-family: 'FontAwesome' !important;
+  content: "\f0dd" !important;
+}
+
+table.dataTable thead .sorting_asc:after{
+  font-family: 'FontAwesome' !important;
+  content: "\f0dd" !important;
+}
+
+table.dataTable thead .sorting_desc:after{
+  font-family: 'FontAwesome' !important;
+  content: "\f0de" !important;
 }
 
 table.dataTable thead .sorting span { background: url('http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/images/sort_both.png') no-repeat center right; }
@@ -661,11 +919,15 @@ canvas {
 #piechart text {
 	font-size: 14px;
 	font-family: $fontfamilypri;
+  color: $white;
+  fill: $white;
 }
 
 #piechart2 text {
 	font-size: 14px;
 	font-family: $fontfamilypri;
+  color: $white;
+  fill: $white;
 }
 
 /* CHARTS */
@@ -673,9 +935,8 @@ canvas {
 .chart {
   display: table;
   table-layout: fixed;
-  width: 80%;
-  max-width: 700px;
-  height: 130px;
+  width: 100%;
+  height: 200px;
   margin: 0 auto;
   background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.1) 2%, transparent 2%);
   background-size: 100% 50px;
@@ -698,6 +959,7 @@ background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 100%,#7d
 background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
   animation: draw 1s ease-in-out;
+  filter: drop-shadow(2px 2px 5px #000);
 }
 .chart span:before {
   position: absolute;
@@ -726,8 +988,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
   border: 2px solid $primarycolor;
 
   &:hover{
-      background-color: #333;
+      background-color: $primarycolor;
       border: 2px solid $primarycolor;
+      color: $white;
   }
 }
 
@@ -751,13 +1014,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 .test-txt{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100%;
 }
 
 #login h5{
     color: $white;
-    font-size: $smaller;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -802,9 +1064,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 }
 
 #movimientos{
+
+    a{
+      font-size: 0.75em;
+    }
     
     table{
         border: 2px solid $primarycolor;
+        box-sizing: border-box;
     }
 
     table tr:nth-child(odd){
@@ -817,9 +1084,82 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 
     table td{
         color: $white;
+        font-size: 0.8em;
     }
 
     th, td{
-        padding: 15px;
+        padding: 10px;
     }
+
+    .input-sm{
+      background-color: $darkgray;
+      height: 35px;
+      color: $white;
+      font-size: 0.75em;
+      margin-bottom: 15px;
+      text-align: center;
+      padding: 0;
+    }
+  
+    label{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 10px;
+    }
+
+}
+
+#consultas {
+  a{
+    font-size: 0.75em;
+  }
+  
+  table{
+      border: 2px solid $primarycolor;
+      box-sizing: border-box;
+  }
+
+  table tr:nth-child(odd){
+      background-color: #3B3B3B;
+  }
+
+  table tr:nth-child(even){
+      background-color: #424242;
+  }
+
+  table td{
+      color: $white;
+      font-size: 0.8em;
+  }
+
+  th, td{
+      padding: 10px;
+  }
+
+  .cumpleanos{
+    width: 150px;
+  }
+
+  .bloquecumples{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .input-sm{
+    background-color: $darkgray;
+    height: 35px;
+    color: $white;
+    font-size: 0.75em;
+    margin-bottom: 15px;
+  }
+
+  label{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
 }

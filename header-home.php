@@ -13,7 +13,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
@@ -25,12 +24,12 @@
     <link href="css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="vegas/vegas.min.css">
 
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
-
 <!-- icofont --> 
 
 <link rel="stylesheet" type="text/css" href="./css/icofont.min.css">
+
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,9 +45,6 @@
                 
             }
             </script>
-
-
-
         <script src="js/jquery.js"></script>
             
         <script src="vegas/vegas.min.js"></script>
@@ -225,42 +221,17 @@
 
     <!-- Navigation -->
 
-    <nav class="navbar navbar-dark bg-light d-none d-sm-block-custom">        
-    
+
+    <nav class="navbar navbar-dark bg-light">
             <div class="navbar-header">
                 <a class="navbar-brand" target="_blank"><img src="img/logos/<?php echo $storename['st_alias'] ?>.png" alt=" " class="logo-primary"/></a>
             </div>
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item linkHeader" data-bs-toggle="modal" data-bs-target="#infopersonal">PERFIL</li>
-                <li class="list-group-item linkHeader">CONTACTO</li>
-            </ul>
             <ul class="list-group list-group-horizontal spaceIconos">
-                <li class="iconosHeader"><a href="https://www.instagram.com/elluchadordemaschwitz/?hl=es" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li class="iconosHeader"><i class="fa fa-instagram" aria-hidden="true"></i></li>
                 <li class="iconosHeader"><i class="fa fa-facebook" aria-hidden="true"></i></li>
-                <li class="iconosHeader"><a href="index.php?salir=true"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                
             </ul>
     </nav>
-
-    
-    <nav class="navbar navbar-dark bg-light d-block d-sm-none">
-    <div class="container-fluid">
-        <a class="navbar-brand" target="_blank"><img src="img/logos/<?php echo $storename['st_alias'] ?>.png" alt=" " class="logo-primary"/></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fa-solid fa-bars"></i>
-        </button>
-    </div>
-    </nav>
-    <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-light p-4">
-            <ul class="list-group spaceIconos list-group-horizontal">
-                <li class="iconosHeader" data-bs-toggle="modal" data-bs-target="#infopersonal"><i class="fa-solid fa-user"></i></li>
-                <li class="iconosHeader"><a href="https://www.instagram.com/elluchadordemaschwitz/?hl=es" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li class="iconosHeader"><i class="fa fa-facebook" aria-hidden="true"></i></li>
-                <li class="iconosHeader"><a href="index.php?salir=true"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
-                <li class="iconosHeader"><i class="fa-solid fa-envelope"></i></li>
-            </ul>
-        </div>
-    </div>
 	
               </div>
             </div>

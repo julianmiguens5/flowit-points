@@ -6,14 +6,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>El Parmegiano - Sors Customer Rewards</title>
+    <title><?php echo ($storename['st_name']); ?> - Flowit Loyalty</title>
     
 	<link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/shop-homepage.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/all.css" crossorigin="anonymous">
     <link href="../css/customfonts.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/bootstrap-datepicker3.css">
@@ -21,26 +21,16 @@
     <link href="../css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="../css/buttons.dataTables.min.css" rel="stylesheet">
 
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
     <!-- SORS ICON -->
+
+    <!-- icofont --> 
+
+    <link rel="stylesheet" type="text/css" href="../css/icofont.min.css">
 
         <!-- SORS ICON -->
 
-    <link rel="apple-touch-icon" sizes="57x57" href="../../img/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="../../img/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../../img/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="../../img/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../../img/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="../../img/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="../../img/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="../../img/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="../../img/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="../../img/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../../img/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="../../img/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="../../img/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
 <meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="../../img/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 
 	        <script>
@@ -53,27 +43,71 @@
             }
             </script>
 
+                        <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-        <div class="container-fluid colornav">
-            <!-- Brand and toggle get grouped for better mobile display -->
+
+    <nav class="navbar navbar-dark bg-light">        
+    
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><img src="../img/parmegiano.png" alt=" " class="logo-primary"/></a>
-                
+                <a class="navbar-brand" target="_blank"><img src="../img/logos/<?php echo $storename['st_alias'] ?>.png" alt=" " class="logo-primary"/></a>
             </div>
-            <!--<img src="../img/rewards-club.png" alt=" " class="logo-sec">-->
-        </div>
+            <ul class="nav nav-tabs" id="myTab">
+                
+                <?php
+				switch ($panel) {
+	    		case 'insc':
+	    		echo '<a href="#home" class="active" data-bs-toggle="tab"><li class="list-group-item linkHeader">Inscripción de socios</li></a>
+                <a href="#puntos" data-bs-toggle="tab"><li class="list-group-item linkHeader">Acumulación de puntos</li></a>
+                <a href="#messages" data-bs-toggle="tab"><li class="list-group-item linkHeader">Validación de cupones</li>
+                <a href="#consultas" data-bs-toggle="tab"><li class="list-group-item linkHeader">Estadísticas</li></a>
+                <a href="#edit" data-bs-toggle="tab"><li class="list-group-item linkHeader">Editar cupones</li></a>';
+	    			break;
+				case 'acum':
+	    			echo '<a href="#home" data-bs-toggle="tab"><li class="list-group-item linkHeader">Inscripción de socios</li></a>
+                <a href="#puntos" class="active" data-bs-toggle="tab"><li class="list-group-item linkHeader">Acumulación de puntos</li></a>
+                <a href="#messages" data-bs-toggle="tab"><li class="list-group-item linkHeader">Validación de cupones</li>
+                <a href="#consultas" data-bs-toggle="tab"><li class="list-group-item linkHeader">Estadísticas</li></a>
+                <a href="#edit" data-bs-toggle="tab"><li class="list-group-item linkHeader">Editar cupones</li></a>';
+	    			break;
+				case 'canj':
+	    			echo '<a href="#home" data-bs-toggle="tab"><li class="list-group-item linkHeader">Inscripción de socios</li></a>
+                <a href="#puntos" data-bs-toggle="tab"><li class="list-group-item linkHeader">Acumulación de puntos</li></a>
+                <a href="#messages" class="active" data-bs-toggle="tab"><li class="list-group-item linkHeader">Validación de cupones</li>
+                <a href="#consultas" data-bs-toggle="tab"><li class="list-group-item linkHeader">Estadísticas</li></a>
+                <a href="#edit" data-bs-toggle="tab"><li class="list-group-item linkHeader">Editar cupones</li></a>';
+	    			break;
+				case 'cons':
+	    			echo '<a href="#home" data-bs-toggle="tab"><li class="list-group-item linkHeader">Inscripción de socios</li></a>
+                <a href="#puntos" data-bs-toggle="tab"><li class="list-group-item linkHeader">Acumulación de puntos</li></a>
+                <a href="#messages" data-bs-toggle="tab"><li class="list-group-item linkHeader">Validación de cupones</li>
+                <a href="#consultas" class="active" data-bs-toggle="tab"><li class="list-group-item linkHeader">Estadísticas</li></a>
+                <a href="#edit" data-bs-toggle="tab"><li class="list-group-item linkHeader">Editar cupones</li></a>';
+	    			break;
+				case 'edit':
+	    			echo '<a href="#home" data-bs-toggle="tab"><li class="list-group-item linkHeader">Inscripción de socios</li></a>
+                <a href="#puntos" data-bs-toggle="tab"><li class="list-group-item linkHeader">Acumulación de puntos</li></a>
+                <a href="#messages" data-bs-toggle="tab"><li class="list-group-item linkHeader">Validación de cupones</li>
+                <a href="#consultas" data-bs-toggle="tab"><li class="list-group-item linkHeader">Estadísticas</li></a>
+                <a href="#edit" class="active" data-bs-toggle="tab"><li class="list-group-item linkHeader">Editar cupones</li></a>';
+	    			break;
+	    		
+	    		default:
+	    			echo '<a href="#home" data-bs-toggle="tab"><li class="list-group-item linkHeader">Inscripción de socios</li></a>
+                <a href="#puntos" class="active" data-bs-toggle="tab"><li class="list-group-item linkHeader">Acumulación de puntos</li></a>
+                <a href="#messages" data-bs-toggle="tab"><li class="list-group-item linkHeader">Validación de cupones</li>
+                <a href="#consultas" data-bs-toggle="tab"><li class="list-group-item linkHeader">Estadísticas</li></a>
+                <a href="#edit" data-bs-toggle="tab"><li class="list-group-item linkHeader">Editar cupones</li></a>';
+	    			break;
+	    	}
+			?>
+            </ul>
+            <a href="index.php?salir=true"><li class="iconosHeader"><i class="icofont-exit"></i></li></a>
     </nav>
 </body>

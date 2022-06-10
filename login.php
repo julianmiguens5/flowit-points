@@ -227,15 +227,15 @@ if (!empty($_POST['submitrecup']) ){
 <!DOCTYPE html>
 <html lang="en">
 
-<?php require_once 'header.php'; ?>
+<?php require_once 'header-home.php'; ?>
 
 <!-- Abrir el modal apenas entramos a la web. -->
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
     $(window).on('load',function(){
         $('#myModal-infopicada').modal('show');
     });
-</script>
+</script>-->
 
 
 <!-- SLIDES DE COMERCIOS -->
@@ -323,7 +323,7 @@ if (!empty($_POST['submitrecup']) ){
 					<br>
 
 						<div class="alert alert-danger alert-dismissible" role="alert">
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float: right;"><span aria-hidden="true">&times;</span></button>
                                       <i class="fa fa-exclamation-triangle"></i> <?= $errorlogin ?>
             </div>
 			<?php } ?>
@@ -336,13 +336,13 @@ if (!empty($_POST['submitrecup']) ){
             <?php
             if (!empty($mensajesoc_ok)) { ?>       
 						<div class="alert alert-success alert-dismissible" role="alert">
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                       <i class="fa fa-exclamation-triangle"></i><?php echo $mensajesoc_ok ?></div>
 
             <?php } 
 					  if (!empty($mensajesocerr)) { ?>       
             <div class="alert alert-danger alert-dismissible" role="alert">
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                       <i class="fa fa-exclamation-triangle"></i><?php echo $mensajesocerr ?></div>
               <?php } ?>
 
@@ -355,13 +355,13 @@ if (!empty($_POST['submitrecup']) ){
             <?php
             if (!empty($mensajerecup_ok)) { ?>       
             <div class="alert alert-success alert-dismissible" role="alert">
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                       <i class="fa fa-exclamation-triangle"></i><?php echo $mensajerecup_ok ?></div>
 
             <?php } 
             if (!empty($mensajerecup_err)) { ?>       
             <div class="alert alert-danger alert-dismissible" role="alert">
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                       <i class="fa fa-exclamation-triangle"></i><?php echo $mensajerecup_err ?></div>
               <?php } ?>
 
@@ -372,169 +372,88 @@ if (!empty($_POST['submitrecup']) ){
             <br>
             
                         <!-- Modal -->
-              <div class="modal right fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-                
-                  <!-- Modal content-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                    	<div class="container-fluid">
-                    		<div class="row">
-                            <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">YA SOY SOCIO</button>
-                            </div>
-                        </div>  
-                    <form class="form-horizontal" method="post">
+              
+
+		</div>
+</div>
+</div>
+
+
+
+ </section>
+    
+
+ <div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content custom-modal">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="btn btn-danger pull-right btn-sors" data-bs-dismiss="modal">YA SOY SOCIO</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      <form class="form-horizontal formRegistro" method="post">
                     <fieldset>
                     
                     <!-- Form Name -->
-                    <h4 class="text-center">Inscripción de Socios<hr class="linea"></h4>
+                    <h4 class="text-center">Registrate</h4>
                     
                     <!--<h4>Datos Obligatorios<hr class="linea"></h4>-->
+                  <div class="container-fluid">
+                    <div class="row">
+                    <div class="col-12 col-md-6">
                     
-                    <!-- Text input-->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="dni">DNI:</label>  
-                      <div class="col-md-4">
-                      <input id="dni" name="dni" type="text" placeholder="DNI" class="form-control input-md" required>
-                      </div>
-                      <div class="col-md-4">
-                      <label class="control-label">(N° de Socio)</label>
-                      </div>
-                    </div>
-                    
-                    <!-- Text input-->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="apellido">Apellido:</label>  
-                      <div class="col-md-4">
-                      <input id="apellido" name="apellido" type="text" placeholder="Apellido" class="form-control input-md" required>
-                        
-                      </div>
+                      <label for="dni">DNI</label>
+                      <input id="dni" name="dni" type="text" class="form-control input-md" required>
+                      <label for="apellido">Apellido</label>
+                      <input id="apellido" name="apellido" type="text" class="form-control input-md" required>
+                      <label for="nombre">Nombre</label>
+                      <input id="nombre" name="nombre" type="text" class="form-control input-md" required>
+                      <label for="mail">E-Mail</label>
+                      <input id="mail" name="mail" type="mail" class="form-control input-md" required>
                     </div>
                     
-                    <!-- Text input-->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="nombre">Nombre:</label>  
-                      <div class="col-md-4">
-                      <input id="nombre" name="nombre" type="text" placeholder="Nombre" class="form-control input-md" required>
-                        
-                      </div>
-                    </div>
-                    
-                    <!-- Text input-->
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="mail">Mail:</label>  
-                      <div class="col-md-4">
-                      <input id="mail" name="mail" type="mail" placeholder="Mail" class="form-control input-md" required>
-                        
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="password">Contraseña:</label>  
-                      <div class="col-md-4">
-                      <input id="password" name="password" type="password" placeholder="Contraseña" class="form-control input-md" required>
-                        
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="fechanac">Fecha de Nacimiento:</label>  
-                      <div class="col-md-4">
-                      <input type="date" name="fechanac" class="form-control input-md" id="fecha" placeholder="Fecha de Nacimiento">
-                        
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="telefono">Teléfono:</label>  
-                      <div class="col-md-4">
+                    <div class="col-12 col-md-6">
+                      <label for="password">Contraseña</label>
+                      <input id="password" name="password" type="password" class="form-control input-md" required>
+                      <label for="fecha">Fecha de Nacimiento</label>
+                      <input type="date" name="fechanac" class="form-control input-md" id="fecha">
+                      <label for="telefono">Teléfono</label>
                       <input id="telefono" name="telefono" type="text" placeholder="Cod. de área y sin 15" class="form-control input-md" required>
-                        
-                      </div>
+                      <input type="checkbox" name="terms" value="terms" checked><span> Terminos y condiciones</span>
                     </div>
-                    <!-- Text input-->
-                    <!--<div class="form-group">
-                      <label class="col-md-4 control-label" for="genero">Género:</label>
-                      <div class="col-md-4"> 
-                        <label class="radio-inline" for="Training-0">
-                          <input type="radio" name="genero" id="Training-0" value="F">
-                          F
-                        </label> 
-                        <label class="radio-inline" for="Training-1">
-                          <input type="radio" name="genero" id="Training-1" value="M">
-                          M
-                        </label>
-                      </div>
-                    </div>-->
-                    <!-- Text input-->
-                    <!--<div class="form-group">
-                      <label class="col-md-4 control-label" for="domicilio">Domicilio:</label>  
-                      <div class="col-md-4">
-                      <input id="domicilio" name="domicilio" type="text" placeholder="Domicilio" class="form-control input-md" required>
-                        
-                      </div>
-                    </div>-->
-                    <!--<div class="form-group">
-                      <label class="col-md-4 control-label" for="ciudad">Provincia:</label>  
-                      <div class="col-md-4">
-                      <select id="ciudad" name="ciudad" class="form-control input-md">
-                      	<option value="CABA">CABA</option>
-  						<option value="GBA Norte">GBA Norte</option>
-  						<option value="GBA Oeste">GBA Oeste</option>
-  						<option value="GBA Sur">GBA Sur</option>
-                        <option value="Buenos Aires">Buenos Aires</option>
-                        <option value="Catamarca">Catamarca</option>
-          				<option value="Chaco">Chaco</option>
-          				<option value="Chubut">Chubut</option>
-          				<option value="Cordoba">Cordoba</option>
-          				<option value="Corrientes">Corrientes</option>
-          				<option value="Entre Rios">Entre Rios</option>
-                        <option value="Formosa">Formosa</option>
-                        <option value="Jujuy">Jujuy</option>
-                        <option value="La Pampa">La Pampa</option>
-                        <option value="La Rioja">La Rioja</option>
-                        <option value="Mendoza">Mendoza</option>
-                        <option value="Misiones">Misiones</option>
-                        <option value="Neuquen">Neuquen</option>
-                        <option value="Rio Negro">Rio Negro</option>
-                        <option value="Salta">Salta</option>
-                        <option value="San Juan">San Juan</option>
-                        <option value="San Luis">San Luis</option>
-                        <option value="Santa Cruz">Santa Cruz</option>
-                        <option value="Santa Fe">Santa Fe</option>
-                        <option value="Sgo. del Estero">Sgo. del Estero</option>
-                        <option value="Tierra del Fuego">Tierra del Fuego</option>
-                        <option value="Tucuman">Tucuman</option>-->
-                      <!--<input id="ciudad" name="ciudad" type="text" placeholder="Ciudad" class="form-control input-md" required>-->
-                      <!--</select>  
-                      </div>
-                    </div>-->
+                    </div>
+                  </div>
                     
-                    <div class="form-group">
-                    <label class="col-md-8 control-label" for="terminos-condiciones">
-                      <input type="checkbox" name="terms" value="terms" checked> 
-                      <!--<a type="button" data-toggle="modal" data-target="#myModal3">-->Acepto términos y condiciones<!--</a>-->
-                      
-                    </label>
-                    </div>  
+
+                    <!-- Text input-->
+                    
                     
                     <!-- Button -->
                     <div class="form-group">
                       
                       <div class="col-md-12">
-                        <button id="submit" name="submitins" class="btn btn-success pull-right" value="submitins">ACEPTAR</button>
+                        <button id="submit" name="submitins" class="btn btn-success pull-right btn-sors" value="submitins">ACEPTAR</button>
                       </div>
                     </div>
                     </fieldset>
                     </form>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
+
+ 
             <div class="modal right fade" id="myModal2" role="dialog">
                 <div class="modal-dialog">
                 
                   <!-- Modal content-->
-                  <div class="modal-content">
+                  <div class="modal-content modal-lg custom-modal">
                     <div class="modal-header">
                       
                     <form class="form-horizontal" method="post">
@@ -577,15 +496,35 @@ if (!empty($_POST['submitrecup']) ){
               </div>
             </div>
 
-		</div>
-</div>
-</div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content custom-modal">
+                      <div class="modal-header">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      </div>
+                      <div class="modal-body">
+                        <h4>Acceso administrador</h4>
+                          <form method="post" class="form-horizontal formRegistro">
+                              <fieldset>
+                                  <div class="form-group">
+                                      <label class="control-label" for="fn">Usuario:</label>
+                                          <input id="usuarioadmin" name="usuarioadmin" type="text" placeholder="Usuario" class="form-control input-md" required>
+                                  </div>
 
- </section>
-    
+                                  <!-- Text input-->
+                                  <div class="form-group">
+                                      <label class="control-label" for="ln">Contraseña:</label>
+                                          <input id="passwordoadmin" name="passwordadmin" type="password" placeholder="Contraseña" class="form-control input-md" required>
+                                          <button id="submitadmin" name="submitadmin" class="btn btn-sors" value="login">INGRESAR</button>
+                                  </div>
 
 
-
+                              </fieldset>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
         <!-- Footer -->
         <footer id="footerlogin">
           <?php require_once 'footer.php' ?>
