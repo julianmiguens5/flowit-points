@@ -232,7 +232,7 @@
             </div>
             <ul class="list-group list-group-horizontal">
                 <li class="list-group-item linkHeader" data-bs-toggle="modal" data-bs-target="#infopersonal">PERFIL</li>
-                <li class="list-group-item linkHeader">CONTACTO</li>
+                <!--<li class="list-group-item linkHeader">CONTACTO</li>-->
             </ul>
             <ul class="list-group list-group-horizontal spaceIconos">
                 <li class="iconosHeader"><a href="https://www.instagram.com/elluchadordemaschwitz/?hl=es" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
@@ -257,7 +257,7 @@
                 <li class="iconosHeader"><a href="https://www.instagram.com/elluchadordemaschwitz/?hl=es" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                 <li class="iconosHeader"><i class="fa fa-facebook" aria-hidden="true"></i></li>
                 <li class="iconosHeader"><a href="index.php?salir=true"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
-                <li class="iconosHeader"><i class="fa-solid fa-envelope"></i></li>
+                <!--<li class="iconosHeader"><i class="fa-solid fa-envelope"></i></li>-->
             </ul>
         </div>
     </div>

@@ -38,11 +38,12 @@ $nombrevoucher = 'Voucher';
 
 if (!empty($_POST['canje1'])) {
     $error5 = $canje->canjearvoucher();
-    if ($error5 != '') {
-        $menscanje = 'El canje de voucher fue exitoso. El voucher N°: ' . $error5 . ' fue enviado a su casilla de correo. Imprima o guarde el mail para presentar en el local. Llame a la sucursal más cercana y coordine la entrega de su canje con 24 horas de anticipación.';
+    if ($error5 != '0') {
+        $menscanje = 'El canje de cupón fue exitoso. El cupón N°: ' . $error5 . ' fue enviado a su casilla de correo. Imprima o guarde el mail para presentar en el local. Llame a la sucursal más cercana y coordine la entrega de su canje con 24 horas de anticipación.';
     } else {
-        $menscanjerr = 'Error en el canje del voucher, verifique si tiene los puntos necesarios.';
+        $menscanjerr = 'Error en el canje del cupón, verifique si tiene los puntos necesarios.';
     }
+    
     $error7 = $restaracum->restaracum();
     $error6 = $resta->restarpuntos();
 }
@@ -100,44 +101,14 @@ if ($cantidadacum == 2) {
                 <div class="row">
                     <div class="col-12">
                         <ul class="nav navbar-nav-secr pull-right">
-                            <!--<li>Hola <?php echo $_SESSION['nombre'] ?> <?php echo $_SESSION['apellido'] ?></li>
-                    <li>Puntos disponibles: <?php echo $puntosacum ?></li>
-                    <li>Categoría: <?php echo $nombrecat ?></li>
-                    <li><a href="#movimientos" class="links"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-                    <li><a href="#movimientos" class="links"><i class="fa fa-bar-chart" aria-hidden="true"></i></a></li>
-                    <li><a href="index.php?salir=true" class="links"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>-->
+                            <li>Hola <?php echo $_SESSION['nombre'] ?> <?php echo $_SESSION['apellido'] ?></li>
+                            <li>Puntos disponibles: <?php echo $puntosacum ?></li>
                         </ul>
 
                     </div>
                 </div>
-                <?php if ((!empty($menscanje)) or (!empty($menscanjerr)) or (!empty($mensedicion))) {
-
-                    if (!empty($menscanje)) {
-                ?> <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float: right;"><span aria-hidden="true">&times;</span></button>
-                            <i class="icofont-tick-mark"></i>
-                        <?php echo $menscanje;
-                    }
-                        ?>
-                        <?php
-                        if (!empty($mensedicion)) { ?>
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float: right;"><span aria-hidden="true">&times;</span></button>
-                                <i class="icofont-tick-mark"></i>
-                            <?php echo $mensedicion;
-                        }
-                            ?>
-                            <?php
-                            if (!empty($menscanjerr)) { ?>
-                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float: right;"><span aria-hidden="true">&times;</span></button>
-                                    <i class="icofont-warning-alt"></i>
-                                <?php echo $menscanjerr;
-                            }
-                                ?>
-                                </div>
-                            <?php } ?>
-                            </div>
+                
+            </div>
         </section>
 
         <section id="vouchers">
@@ -148,6 +119,35 @@ if ($cantidadacum == 2) {
             <?php if ($cantidadacum == 2) { ?>
 
             <?php } ?>
+
+            <?php if ((!empty($menscanje)) or (!empty($menscanjerr)) or (!empty($mensedicion))) {
+
+if (!empty($menscanje)) {
+?> <div class="alert alert-success alert-dismissible customAlert" role="alert">
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float: right;"><span aria-hidden="true">&times;</span></button>
+        <i class="icofont-tick-mark"></i>
+    <?php echo $menscanje;
+}
+    ?>
+    <?php
+    if (!empty($mensedicion)) { ?>
+        <div class="alert alert-success alert-dismissible customAlert" role="alert">
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float: right;"><span aria-hidden="true">&times;</span></button>
+            <i class="icofont-tick-mark"></i>
+        <?php echo $mensedicion;
+    }
+        ?>
+        <?php
+        if (!empty($menscanjerr)) { ?>
+            <div class="alert alert-danger alert-dismissible customAlert" role="alert">
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float: right;"><span aria-hidden="true">&times;</span></button>
+                <i class="icofont-warning-alt"></i>
+            <?php echo $menscanjerr;
+        }
+            ?>
+            </div>
+        <?php } ?>
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
@@ -195,7 +195,7 @@ if ($cantidadacum == 2) {
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="collapsed" data-bs-toggle="collapse" href="#collapse2">Historial de Vouchers
+                            <a class="collapsed" data-bs-toggle="collapse" href="#collapse2">Historial de Cupones
                                 <!--<i class="fa fa-lg fa-plus" aria-hidden="true"></i>-->
                             </a>
                         </h4>
@@ -207,7 +207,7 @@ if ($cantidadacum == 2) {
                                     <thead class="thead-inverse">
                                         <tr>
                                             <th>Fecha</th>
-                                            <th>N° de Voucher</th>
+                                            <th>N° de Cupón</th>
                                             <th>Valor</th>
                                             <th>Premio</th>
                                             <th>Puntos</th>

@@ -71,23 +71,26 @@ function generar_password_abc($longitud){
 }
 function nombre_est()
 {
-	$nombreest = "Circulo Parmegiano";
+	$nombrecom = new Stores;
+	$nombrecom=$nombrecom->traerStore();
+	$nombreest = "Club".$nombrecom;
 	return $nombreest;
 }
 function web_est()
 {
-	$web = "https://www.sorsrewards.com/parmegiano";
+	$nombrecom = new Stores;
+	$nombrecom=$nombrecom->traerStore();
+	$web = "https://flowit.es/loyalty/?st=".$nombrecom;
 	return $web;
 }
 function estilo_est()
 {
-	$estilo = 'style="color:#CB9865;
+	$estilo = 'style="color:#000;
 	background-color:#fff;
 	padding: 20px;
 	border-radius: 8px 8px 8px 8px;
 	-moz-border-radius: 8px 8px 8px 8px;
-	-webkit-border-radius: 8px 8px 8px 8px;
-	border: 5px double #CB9865;"';
+	-webkit-border-radius: 8px 8px 8px 8px;"';
 	return $estilo;
 }
 
@@ -400,6 +403,7 @@ class restaacum extends Conexion
 		$descripcion = "Canje de puntos";
 		$fecha = date('Y/m/d');
 		$mp = (filter_input(INPUT_POST, 'montopuntos', FILTER_SANITIZE_SPECIAL_CHARS));
+		$mp = (int)$mp;
 		$puntostotales = $_SESSION['puntos'];
 		if ($puntostotales >= $mp)
 		{
@@ -432,6 +436,7 @@ class restapuntos extends Conexion
 		$dni = $_SESSION['usuario'];
 		$puntos = $_SESSION['puntos'];
 		$montopuntos = filter_input(INPUT_POST, 'montopuntos', FILTER_SANITIZE_SPECIAL_CHARS);
+		$montopuntos = (int)$montopuntos;
 		if ($puntos >= $montopuntos)
 		{
 		$_SESSION['puntos'] = $_SESSION['puntos']-$montopuntos;
@@ -454,6 +459,7 @@ class cuentap extends Conexion
 		$puntosacum=mysqli_query(parent::con(),"SELECT SUM(puntos) AS ptotales FROM `acumulacion` WHERE `dni`='$dni'");
 		$row = mysqli_fetch_array($puntosacum, MYSQLI_ASSOC);
 		$montopuntos = filter_input(INPUT_POST, 'montopuntos', FILTER_SANITIZE_SPECIAL_CHARS);
+		$montopuntos = (int)$montopuntos;
 		$puntostot=$row["ptotales"];
 		if ($puntostot >= $montopuntos) {
 			$puntostot=$row["ptotales"]-$montopuntos;
@@ -560,6 +566,7 @@ class canjevoucher extends Conexion
 			$importe = filter_input(INPUT_POST, 'importe', FILTER_SANITIZE_SPECIAL_CHARS);
 			$montopuntos = filter_input(INPUT_POST, 'montopuntos', FILTER_SANITIZE_SPECIAL_CHARS);
 			$premio = filter_input(INPUT_POST, 'premio', FILTER_SANITIZE_SPECIAL_CHARS);
+			$montopuntos = (int)$montopuntos;
 			$puntostotales = $_SESSION['puntos'];
 			$nombrecom=new Stores;
 			$nombrecom=$nombrecom->traerStore();
@@ -637,8 +644,7 @@ class canjevoucher extends Conexion
 			}
 			else
 			{
-				$error=true;
-				return $error;
+				return 0;
 			}
 		}
 }
@@ -888,7 +894,7 @@ class editarvoucher extends Conexion {
 		$result=mysqli_query(parent::con(), "SELECT * FROM `tbl_listavouchers` ORDER BY `valorpuntos`");
 		$row_cnt = mysqli_num_rows($result);
 		if($row_cnt>0) {
-			echo '<table class="table table-striped">
+			echo '<table class="table table-striped editTable">
 			  <tr>
 				<th>ID</th>
 				<th>Producto</th>
@@ -901,7 +907,7 @@ class editarvoucher extends Conexion {
 					echo '<td><input type="text" class="form-control" name="item" value="'.$prod['item'].'"></td>';
 					echo '<td><input type="number" class="form-control" name="valorpuntos" value="'.$prod['valorpuntos'].'"></td>';
 					echo '<td><input type="number" class="form-control" name="valordinero" value="'.$prod['valordinero'].'"></td>';
-					echo '<td><button id="submit" name="vouedit" class="btn btn-success" value="vouedit">EDITAR</button></td></tr></form>';
+					echo '<td><button id="submit" name="vouedit" class="btn btn-success btn-sors" value="vouedit">EDITAR</button></td></tr></form>';
 				}
 			echo '</table>';
 		}
@@ -997,7 +1003,7 @@ class recuperarpass extends Conexion
 					$codigo1 = generar_voucher_abc(6);
 					$codigo2 = generar_voucher_num(6);
 					$codigorecup = $codigo1 . $codigo2;
-					$linkrecup = "https://www.sorsrewards.com/parmegiano/recupero.php?code=".$codigorecup."&dni=".$dni;
+					$linkrecup = "https://flowit.es/loyalty/recupero.php?code=".$codigorecup."&dni=".$dni;
 					$result=mysqli_query(parent::con(),"INSERT INTO `tbl_recuppass`(`re_dni`,`re_codigo`) VALUES ('$dni','$codigorecup')");
 					$rowrecup=mysqli_fetch_array($query);
 					$dni=$rowrecup['usuario'];
@@ -1069,7 +1075,7 @@ class recuperarpass extends Conexion
 		if (($usado == 0) && ($codigo == $code)) {
 			$cambiopass = mysqli_query(parent::con(),"UPDATE `tbl_recuppass` SET `re_usado`='1' WHERE `re_codigo`='$code'");
 			$result = mysqli_query(parent::con(),"UPDATE `usuarios` SET `recup-pass`='$password',`password`=MD5('$password') WHERE `usuario`='$dni'");
-			header( 'Location: https://www.sorsrewards.com/parmegiano/?cambiopass=exito' );
+			header( 'Location: https://flowit.es/loyalty/?cambiopass=exito' );
 		} else {
 			$error = 0;
 		}

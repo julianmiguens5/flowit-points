@@ -50,11 +50,11 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 
 	$nestedData[] = $row["n_voucher"];
 	$nestedData[] = $row["dni"];
-	$nestedData[] = utf8_encode($row["apellido"]);
-	$nestedData[] = utf8_encode($row["nombre"]);
+	$nestedData[] = $row["apellido"];
+	$nestedData[] = $row["nombre"];
 	$nestedData[] = $row["fechala"];
 	$nestedData[] = '$ '.$row["importe"];
-	$nestedData[] = utf8_encode($row["premio"]);
+	$nestedData[] = $row["premio"];
 	$data[] = $nestedData;
 }
 

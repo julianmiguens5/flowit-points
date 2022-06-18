@@ -260,7 +260,7 @@ if (!empty($_POST['submitrecup']) ){
 
 <body>
     <!-- Page Content -->
-    
+<div class="flex-wrapper">   
  <section id="login">
     <div class="container">
     	<div class="row">
@@ -710,7 +710,7 @@ if (!empty($_POST['submitrecup']) ){
     });
     </script>
       
-
+  </div>
 </body>
 
 </html>

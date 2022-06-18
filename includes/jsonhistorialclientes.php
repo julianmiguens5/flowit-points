@@ -49,7 +49,7 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$nestedData[] = $row["puntos"];
 */
 	$nestedData[] = $row["fechala"];
-	$nestedData[] = utf8_encode($row["descripcion"]);
+	$nestedData[] = $row["descripcion"];
 	$nestedData[] = $row["puntos"];
 
 	

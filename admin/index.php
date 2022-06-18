@@ -294,14 +294,12 @@ if ( empty($arrAdmin) ) {
                                       <label class="control-label" for="cmpny">Importe del Ticket/Factura:</label>  
 
                                       <input onchange="obtenerSuma();" onkeyup="obtenerSuma();" id="sumando1" type="number" size="7" maxlength="7" class="form-control" placeholder="Importe del Ticket" name="monto" autocomplete="off" required>
-                                   
+                                    </div>
 
-                                      <div class="col-md-1">
-                                      <label class="control-label pull-right" for="puntos">Puntos:</label>
-                                      </div>
-                                      <div class="col-md-2">
+                                    <div class="form-group">
+                                      <label class="control-label" for="puntos">Puntos:</label>
                                       <input id="resultado" type="number" size="7" maxlength="7" class="form-control" name="puntos" readonly>
-                                      </div>
+                                      
                                     </div>
 									<div class="form-group">
 									  <label class="col-md-4 control-label" for="Sucursal">Sucursal:</label>  
@@ -337,6 +335,8 @@ if ( empty($arrAdmin) ) {
         </div>
         <div class="modal-body" style="padding:40px 50px;">
           <form role="form" method="post">
+            <fieldset>
+              <div class="fieldsetForm modalForm">
             <div class="form-group">
               <label for="dni">DNI</label>
               <input type="text" class="form-control" id="dniconf" name="dni" readonly>
@@ -344,16 +344,20 @@ if ( empty($arrAdmin) ) {
             <div class="form-group">
               <label for="puntos">PUNTOS</label>
               <input type="text" class="form-control" id="puntosconf" name="puntos" readonly>
-		      <input type="hidden" id="sucursalconf" name="sucursal" readonly>
-		      <input type="hidden" id="ticketconf" name="ticket" readonly>
-		      <input type="hidden" id="montoconf" name="monto" readonly>
-		      <input type="hidden" id="uniqueidconf" name="unique_id" readonly>
+              <input type="hidden" id="sucursalconf" name="sucursal" readonly>
+              <input type="hidden" id="ticketconf" name="ticket" readonly>
+              <input type="hidden" id="montoconf" name="monto" readonly>
+              <input type="hidden" id="uniqueidconf" name="unique_id" readonly>
             </div>
+            <div class="form-group">
               <input type="submit" value="ACEPTAR" name="submitacum" class="btn btn-sors" id="submitacum">
+            </div>
+            </div>
+            </fieldset>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-sors" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+          <button type="submit" class="btn btn-sors" data-bs-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
         </div>
       </div>
       
@@ -477,12 +481,21 @@ if ( empty($arrAdmin) ) {
  <div class="tab-pane <?php if($panel=='cons') echo 'active'; ?>" id="consultas">
 	 
 <div class="row">
-<div class="col-6 m-b-md">
-<div id="piechart" style="display: inline-block"></div>
-<div id="piechart2" style="display: inline-block"></div>
+<div class="col-12 m-b-md">
+<div class="pieContainer">
+  <div style="display: flex; flex-direction: column; align-items: center;">
+  <h5 class="titleSuc">Rendimiento de sucursales</h5>
+  <div id="piechart" style="display: inline-block"></div>
+  </div>
+  <div style="display: flex; flex-direction: column; align-items: center;">
+  <h5 class="titleSuc">Canjeados vs Pendientes</h5>
+  <div id="piechart2" style="display: inline-block"></div>
+  </div>
 </div>
 
-<div class="col-6">
+</div>
+
+<div class="col-12">
 	  <h5><strong>Cumpleaños de hoy</strong></h5>
 	  <!--<legend><i class="fas fa-birthday-cake"></i></legend>-->
     <div class="bloquecumples">
@@ -556,45 +569,28 @@ echo "</table>";
   </div>	
 </div>-->
   <div class="col-12 m-b-md">
-<?php  
-   $porcentaje2 = number_format((($topcinco[1]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje3 = number_format((($topcinco[2]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje4 = number_format((($topcinco[3]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje5 = number_format((($topcinco[4]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje6 = number_format((($topcinco[5]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje7 = number_format((($topcinco[6]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje8 = number_format((($topcinco[7]["puntos"]*100)/$topcinco[0]["puntos"]));
-   $porcentaje9 = number_format((($topcinco[8]["puntos"]*100)/$topcinco[0]["puntos"]));
-?>
+
+
+
+
 	  <h5 class="text-center"><strong>Top Clientes</strong></h5>
 	  <ul class="chart">
   <li>
-    <span style="height:100%" title="<?php  echo $topcinco[0]["nombre"]." ".$topcinco[0]["apellido"] ?>"></span>
+    <p class="text-center noMargin"><?= $topcinco[0]["puntos"] ?></p><span style="height:100%" title="<?php  echo $topcinco[0]["nombre"]." ".$topcinco[0]["apellido"] ?>"></span>
   </li>
+
+  <?php
+
+for ($i=1; $i < 9; $i++) { 
+  $porcentaje = number_format((($topcinco[$i]["puntos"]*100)/$topcinco[0]["puntos"]));
+  ?>
+
   <li>
-    <span style="height:<?php  echo $porcentaje2."%" ?>" title="<?php  echo $topcinco[1]["nombre"]." ".$topcinco[1]["apellido"] ?>"></span>
+   <p class="text-center noMargin"><?= $topcinco[$i]["puntos"] ?></p><span style="height:<?php  echo $porcentaje."%" ?>" title="<?php  echo $topcinco[$i]["nombre"]." ".$topcinco[$i]["apellido"] ?>"></span>
   </li>
-  <li>
-    <span style="height:<?php  echo $porcentaje3."%" ?>" title="<?php  echo $topcinco[2]["nombre"]." ".$topcinco[2]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<?php  echo $porcentaje4."%" ?>" title="<?php  echo $topcinco[3]["nombre"]." ".$topcinco[3]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<?php  echo $porcentaje5."%" ?>" title="<?php  echo $topcinco[4]["nombre"]." ".$topcinco[4]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<?php  echo $porcentaje6."%" ?>" title="<?php  echo $topcinco[5]["nombre"]." ".$topcinco[5]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<?php  echo $porcentaje7."%" ?>" title="<?php  echo $topcinco[6]["nombre"]." ".$topcinco[6]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<?php  echo $porcentaje8."%" ?>" title="<?php  echo $topcinco[7]["nombre"]." ".$topcinco[7]["apellido"] ?>"></span>
-  </li>
-  <li>
-    <span style="height:<?php  echo $porcentaje9."%" ?>" title="<?php  echo $topcinco[8]["nombre"]." ".$topcinco[8]["apellido"] ?>"></span>
-  </li>
+
+<?php } ?>
+
 </ul>  
   </div>
   <hr>
@@ -1051,8 +1047,8 @@ function drawChart() {
 ]);
 
   // Optional; add a title and set the width and height of the chart
-  var options = {'title':'Rendimiento de sucursales', 'width':270, 'height':280, 'backgroundColor': 'transparent', is3D:false, legend: 'none',
-          pieSliceText: 'label', pieStartAngle: 100, pieSliceTextStyle: {color: 'white', fontName: 'Maven Pro', fontSize: 7}};
+  var options = {'width':330, 'height':330, 'backgroundColor': 'transparent', is3D:false, legend: 'none', tooltip: {textStyle: {color: '#000'}, showColorCode: true, isHtml: true, fontSize: 15},
+          pieSliceText: 'label', pieStartAngle: 100, pieSliceTextStyle: {color: '#000', fontName: 'Montserrat', fontSize: 7}};
 
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -1080,8 +1076,8 @@ function drawChart() {
 ]);
 <?php  } ?>
   // Optional; add a title and set the width and height of the chart
-  var options = {'title':'Canjeados vs Pendientes', 'width':270, 'height':280, 'backgroundColor': 'transparent', is3D:false, legend: 'none',
-          pieSliceText: 'label', pieStartAngle: 100, pieSliceTextStyle: {color: 'white', fontName: 'Maven Pro', fontSize: 7}};
+  var options = {'width':330, 'height':330, 'backgroundColor': 'transparent', is3D:false, legend: 'none', tooltip: {textStyle: {color: '#000'}, showColorCode: true, isHtml: true, fontSize: 15},
+          pieSliceText: 'label', pieStartAngle: 100, pieSliceTextStyle: {color: '#000', fontName: 'Montserrat', fontSize: 7}};
 
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart2'));

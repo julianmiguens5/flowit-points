@@ -14,6 +14,10 @@ body {
 	font-family: $fontfamilypri;/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+.noMargin{
+  margin: 0;
+}
+
 a{
   text-decoration: none;
   color: inherit;
@@ -220,7 +224,7 @@ button{
 }
 .login {
 	padding-top:13px;
-	background-color:#000;
+	background-color: rgba(0,0,0,0.7);
 	border-radius: 10px 10px 10px 10px;
 	-moz-border-radius: 10px 10px 10px 10px;
 	-webkit-border-radius: 10px 10px 10px 10px;
@@ -292,9 +296,6 @@ i{
 .links:active {
 	text-decoration: none !important;
 	background-color:transparent !important;
-}
-.data {
-	background-color: #fff;
 }
 #slideimg {
 	height: 600px;
@@ -505,6 +506,12 @@ border: 1px solid #000000;
     border-radius: 4px;
 }
 /*--------------VOUCHERS-----------------------*/
+.navbar-nav-secr{
+  gap: 10px;
+  font-size: 0.85em;
+  color: $white;
+}
+
 .beneficios {
 	color: #fff;
 }
@@ -518,7 +525,7 @@ border: 1px solid #000000;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(20,20,20,0.9);
+    background-color: rgba(20, 20, 20, 0.6);
     -webkit-border-top-right-radius: 10px;
     -webkit-border-bottom-right-radius: 10px;
     -moz-border-radius-topright: 10px;
@@ -578,7 +585,7 @@ border: 1px solid #000000;
     color: white;
     border-radius: 10px;
     border: 2px solid $primarycolor;
-    height: 220px;
+    height: 280px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
@@ -602,12 +609,24 @@ border-bottom-left-radius: 10px;
   width: fit-content;
   margin-bottom: 10px;
   border: 1px solid $primarycolor !important;
+  background-color: $darkgray !important;
+
+  &:hover{
+    background-color: $primarycolor !important;
+  }
 }
 
-#usuarios i{
+#usuarios i, #vouchers i{
   color: darkolivegreen;
   font-size: 1.5em;
 }
+
+@media screen and (max-width: 767px) {
+	.thumbnail {
+    height: 220px;
+  }
+}
+
 /*--------------FOOTER-----------------------*/
 footer {
 	background-color:#000;
@@ -617,8 +636,6 @@ footer {
     width: 100%;
 }
 @media screen and (max-width: 767px) {
-	footer { visibility: hidden; }
-
   .d-sm-block-custom{
     display: none !important;
   }
@@ -674,6 +691,10 @@ box-shadow: inset 0px 0px 6px 3px rgba(0,0,0,0.75);
 
 .fieldsetForm input{
   width: 300px;
+}
+
+.modalForm{
+  gap: 10px;
 }
 
 .iconoSalir{
@@ -994,8 +1015,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
   }
 }
 
-.jumboLogin{
-  padding: 50px 0px 50px;
+.editTable th{
+  color: $white !important;
 }
 
 .loginCuadro{
@@ -1113,6 +1134,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 #consultas {
   a{
     font-size: 0.75em;
+
+    &:hover{
+      color: $primarycolor;
+    }
+  }
+
+  h5.titleSuc{
+    margin-bottom: -20px;
+  }
+
+  .pieContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
   
   table{
@@ -1145,6 +1180,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 15px;
   }
 
   .input-sm{
@@ -1162,4 +1198,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
     justify-content: center;
     gap: 10px;
   }
+
+  @media screen and (max-width: 767px) {
+    .pieContainer{
+      flex-direction: column;
+    }
+  }
+}
+
+.customAlert{
+  background-color: transparent;
+  color: white;
+  font-size: 1.1em;
 }
